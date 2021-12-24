@@ -69,18 +69,23 @@ const Title = styled.h1`
 
 const SparkleContainer = styled.div`
   position: relative;
-  top: -2rem;
-  left: -2rem;
+  top: -2em;
+  left: -2em;
 
   @media ${devices.laptop} {
-    top: 3.8rem;
-    left: -3.5rem;
+    top: 3.8em;
+    left: -3.5em;
   }
 
   @media ${devices.tabletPortrait} {
-    width: 4rem;
+    width: 4em;
     height: auto;
-    left: 2rem;
+    left: 2em;
+  }
+
+  @media ${devices.mobile} {
+    top: 4.2em;
+    left: 2.2em;
   }
 `
 
