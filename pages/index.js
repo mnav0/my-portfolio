@@ -53,14 +53,14 @@ const TitleContainer = styled.div`
 `
 
 const Title = styled.h1`
-  width: 8.1em;
+  width: 8.2em;
 
   @media ${devices.laptop} {
     width: 4.5em;
   }
 
   @media ${devices.tabletPortrait} {
-    width: 3.5em;
+    width: 3.6em;
   }
 `
 
