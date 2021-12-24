@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
         background-color: ${colors.lightPurple};
     }
     h1 {
-        font-family: PPNeueMachina-UltraBold;
+        font-family: PPNeueMachina-Ultrabold;
         font-weight: 800;
         color: ${colors.darkPurple};
         font-size: 5.75em;

@@ -193,11 +193,11 @@ export default function Home({ homepage }) {
 
   return (
     <>
+      <GlobalStyle />
       <Head>
         <title>magdalena navracruz - home</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <GlobalStyle />
       <ShapesContainer>
         <YellowSquare />
         <PinkRectangle />

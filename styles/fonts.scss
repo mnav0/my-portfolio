@@ -1,19 +1,23 @@
 @font-face {
   font-family: "PPNeueMachina-Regular";
-  src: url("../styles/PPNeueMachina-Regular.otf") format("opentype");
+  src: url("../styles/PPNeueMachina-Regular.otf") format("opentype"),
+    url("../styles/PPNeueMachina-Regular.woff") format("woff");
 }
   
 @font-face {
-  font-family: "PPNeueMachina-UltraBold";
-  src: url("../styles/PPNeueMachina-UltraBold.otf") format("opentype");
+  font-family: "PPNeueMachina-Ultrabold";
+  src: url("../styles/PPNeueMachina-Ultrabold.otf") format("opentype"),
+    url("../styles/PPNeueMachina-Ultrabold.woff") format("woff");
 }
   
 @font-face {
   font-family: "ObjectSans-Regular";
-  src: url("../styles/ObjectSans-Regular.otf") format("opentype");
+  src: url("../styles/PPObjectSans-Regular.otf") format("opentype"),
+    url("../styles/PPObjectSans-Regular.woff") format("woff");
 }
   
 @font-face {
   font-family: "ObjectSans-Bold";
-  src: url("../styles/ObjectSans-Bold.otf") format("opentype");
+  src: url("../styles/PPObjectSans-Bold.otf") format("opentype"),
+    url("../styles/PPObjectSans-Bold.woff") format("woff");
 }
