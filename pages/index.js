@@ -140,11 +140,12 @@ const ArrowContainer = styled.div`
   width: 2.25em;
   height: 0.75em;
   margin-right: 3em;
-  margin-top: 0.4em;
+  margin-top: 0.5em;
 
   @media ${devices.tabletPortrait} {
-    margin-top: 0.1em;
+    margin-top: 0.2em;
     margin-right: 1.5em;
+    width: 2em;
   }
 `
 
@@ -184,7 +185,6 @@ const GreenRectangle = styled.div`
 export default function Home({ homepage }) {
 
   const extLinkResolverHome = (doc) => {
-    console.log(doc)
     if (doc.link_type === "Document") {
       if (doc.slug == "work-page") {
         return "/"
