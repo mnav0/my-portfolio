@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
         background-color: ${colors.lightPurple};
     }
     h1 {
-        font-family: "neue-machina-ultrabold";
+        font-family: PPNeueMachina-UltraBold;
         font-weight: 800;
         color: ${colors.darkPurple};
         font-size: 5.75em;
@@ -20,11 +20,11 @@ const GlobalStyle = createGlobalStyle`
         }
     } 
     h2, h3, h4, h5 {
-        font-family: "neue-machina-regular";
+        font-family: PPNeueMachina-Regular;
         font-weight: 400;
     }
     p, a  {
-        font-family: "object-sans-regular";
+        font-family: ObjectSans-Regular;
         font-weight: 400;
         color: ${colors.darkPurple};
         font-size: 1em;
@@ -32,11 +32,11 @@ const GlobalStyle = createGlobalStyle`
         text-decoration: none;
     }
     p strong {
-        font-family: "object-sans-bold";
+        font-family: ObjectSans-Bold;
         font-weight: 600;
     }
     a:hover {
-        font-family: "object-sans-bold";
+        font-family: ObjectSans-Bold;
         transition: font-weight 0.2s ease-in-out;
     }
 `
