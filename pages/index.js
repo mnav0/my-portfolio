@@ -21,6 +21,9 @@ const TextContainer = styled.div`
   & a {
     position: relative;
     bottom: 0;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     border-bottom: 2px solid ${colors.blue};
   }
 
@@ -60,7 +63,7 @@ const Title = styled.h1`
   }
 
   @media ${devices.tabletPortrait} {
-    width: 3.6em;
+    width: 3.8em;
   }
 `
 

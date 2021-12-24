@@ -28,7 +28,7 @@ const GlobalStyle = createGlobalStyle`
         font-weight: 400;
         color: ${colors.darkPurple};
         font-size: 1em;
-        line-height: 1.2;
+        line-height: 1.4;
         text-decoration: none;
     }
     p strong {
