@@ -184,13 +184,14 @@ const GreenRectangle = styled.div`
 export default function Home({ homepage }) {
 
   const extLinkResolverHome = (doc) => {
+    console.log(doc)
     if (doc.link_type === "Document") {
       if (doc.slug == "work-page") {
         return "/"
       } else {
         return `/${doc.slug}`
       }
-    } else if (doc.link_type === "Web") {
+    } else if (doc.link_type === "Web" || doc.link_type === "Media") {
       return doc.url;
     } else {
       return "/"
