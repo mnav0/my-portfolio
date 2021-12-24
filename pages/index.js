@@ -106,11 +106,13 @@ const LinkContainer = styled.div`
   flex-direction: row;
   flex-wrap: nowrap;
   margin-top: 1em;
+  width: 16em;
 
   & p {
     margin: 0 1em 0 0;
     font-size: 1.5em;
   }
+
   & a {
     margin-right: 1em;
     cursor: pointer;
@@ -123,6 +125,8 @@ const LinkContainer = styled.div`
   }
 
   @media ${devices.tabletPortrait} {
+    width: 9.6em;
+
     & p {
       font-size: 1em;
     }
@@ -132,6 +136,35 @@ const LinkContainer = styled.div`
     }
     & a:hover {
       margin-right: 0.75em;
+    }
+  }
+
+  @media ${devices.mobile} {
+    width: 8.5em;
+
+    & a {
+      margin-right: 0.25em;
+    }
+    & a:hover {
+      margin-right: 0.5em;
+    }
+  }
+`
+
+const InactiveLink = styled.div`
+  margin-top: 1em;
+  width: 30em;
+  
+  & p {
+    margin: 0 1em 0 0;
+    font-size: 1.5em;
+  }
+
+  @media ${devices.tabletPortrait} {
+    width: 20em;
+
+    & p {
+      font-size: 1em;
     }
   }
 `
@@ -146,6 +179,11 @@ const ArrowContainer = styled.div`
     margin-top: 0.2em;
     margin-right: 1.5em;
     width: 2em;
+  }
+
+  @media ${devices.mobile} {
+    width: 1.5em;
+    margin-right: 1em;
   }
 `
 
@@ -227,22 +265,20 @@ export default function Home({ homepage }) {
           {data.links.map((l, i) => {
             const inactive = l.link_label == "view my work"
             return (
-              <LinkContainer key={i}>
-                <Link href={extLinkResolverHome(l.link)}
-                >
-                  {!inactive ? 
+              inactive ? 
+                <InactiveLink>
+                  <p>come back to view my work soon!</p>
+                </InactiveLink> :
+                <LinkContainer key={i}>
+                  <Link href={extLinkResolverHome(l.link)}
+                  >
                     <a target={l.link.target || l.link_label == "resume" ? "_blank" : ""}>{l.link_label}</a>
-                    :
-                    <p>come back to view my work soon!</p>
-                  }
-                </Link>
-                {!inactive && 
+                  </Link>
                   <ArrowContainer>
                     <Img src={Arrow} />
                   </ArrowContainer>
-                }
-              </LinkContainer>
-            )
+                </LinkContainer>
+              )
           })}
         </LinksContainer>
       </PageContainer>
