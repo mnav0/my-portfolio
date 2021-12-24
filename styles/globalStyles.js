@@ -2,7 +2,7 @@ import { createGlobalStyle } from "styled-components"
 import { colors } from "./colors"
 import { devices } from "./devices"
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`  
     body {
         padding: 2rem 5.5%;
         width: 100%;
