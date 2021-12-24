@@ -28,6 +28,7 @@
     "babel-loader": "^8.2.3",
     "eslint": "8.5.0",
     "eslint-config-next": "12.0.7",
+    "sass": "^1.45.1",
     "slice-machine-ui": "^0.1.2"
   }
 }

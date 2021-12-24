@@ -9,6 +9,8 @@ const GlobalStyle = createGlobalStyle`
         background-color: ${colors.lightPurple};
     }
     h1 {
+        font-family: "neue-machina-ultrabold";
+        font-weight: 800;
         color: ${colors.darkPurple};
         font-size: 5.75em;
         margin-bottom: 0.25em;
@@ -17,10 +19,21 @@ const GlobalStyle = createGlobalStyle`
             font-size: 4em;
         }
     } 
+    h2, h3, h4, h5 {
+        font-family: "neue-machina-regular";
+        font-weight: 400;
+    }
     p, a  {
+        font-family: "object-sans-regular";
+        font-weight: 400;
         color: ${colors.darkPurple};
         font-size: 1em;
         line-height: 1.2;
+        text-decoration: none;
+    }
+    p strong {
+        font-family: "object-sans-bold";
+        font-weight: 600;
     }
     a:hover {
         font-family: "object-sans-bold";
