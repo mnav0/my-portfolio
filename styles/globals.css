@@ -1,14 +1,56 @@
+@font-face {
+  font-family: "neue-machina-regular";
+  src: url("../styles/PPNeueMachina-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "neue-machina-ultrabold";
+  src: url("../styles/PPNeueMachina-UltraBold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "object-sans-regular";
+  src: url("../styles/ObjectSans-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "object-sans-bold";
+  src: url("../styles/ObjectSans-Bold.otf") format("opentype");
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
+}
+
+h1 {
+  font-family: "neue-machina-ultrabold";
+  font-weight: 800;
+}
+
+h2, h3, h4, h5 {
+  font-family: "neue-machina-regular";
+  font-weight: 400;
+}
+
+p {
+  font-family: "object-sans-regular";
+  font-weight: 400;
+}
+
+p strong {
+  font-family: "object-sans-bold";
+  font-weight: 600;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+  font-family: "object-sans-regular";
+  font-weight: 400;
 }
 
 * {
