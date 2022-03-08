@@ -7,6 +7,9 @@ import { colors } from "../styles/colors"
 import { devices } from "../styles/devices"
 import Arrow from "../assets/arrow.svg"
 import Sparkle from "../assets/sun-rays.svg"
+import Sprinkle from "../assets/Sprinkle.js"
+import Circle from "../assets/Circle"
+import Square from "../assets/Square.js"
 import Img from "next/image";
 import Head from "next/head";
 
@@ -24,7 +27,7 @@ const TextContainer = styled.div`
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    border-bottom: 2px solid ${colors.blue};
+    border-bottom: 2px solid ${colors.red};
   }
 
   & a:hover {
@@ -56,14 +59,15 @@ const TitleContainer = styled.div`
 `
 
 const Title = styled.h1`
-  width: 8.2em;
+  margin-top: 0;
+  width: 6.6em;
 
   @media ${devices.laptop} {
-    width: 4.5em;
+    width: 4.2em;
   }
 
   @media ${devices.tabletPortrait} {
-    width: 3.8em;
+    width: 3.4em;
   }
 `
 
@@ -73,19 +77,20 @@ const SparkleContainer = styled.div`
   left: -2em;
 
   @media ${devices.laptop} {
-    top: 3.8em;
+    top: 4em;
     left: -3.5em;
   }
 
   @media ${devices.tabletPortrait} {
     width: 4em;
     height: auto;
-    left: 2em;
+    left: 0;
+    top: 3em;
   }
 
   @media ${devices.mobile} {
-    top: 4.2em;
-    left: 2.2em;
+    top: 2.4em;
+    left: 0.2em;
   }
 `
 
@@ -188,36 +193,57 @@ const ArrowContainer = styled.div`
 `
 
 const ShapesContainer = styled.div`
-  position: absolute;
-  left: 0;
-  width: 100%;
-`
+  position: relative;
+  left: -5.5%;
+  width: 13%;
+  top: 9.2rem;
 
-const PinkRectangle = styled.div`
-  position: absolute;
-  top: 6.5em;
-  left: calc(13% - 12.5em);
-  height: 12em;
-  width: 21em;
-  background-color: ${colors.pink};
+  @media ${devices.laptop} {
+    top: 2.5em;
+    width: 89%;
+    left: 5.5%;
+  }
+
+  @media ${devices.tabletPortrait} {
+
+  }
+
+  @media ${devices.mobile} {
+
+  }
 `
 
 const YellowSquare = styled.div`
   position: absolute;
-  height: 12.25em;
-  width: 12.25em;
-  left: 13%;
-  top: 3.9em;
-  background-color ${colors.yellow};
+  right: 0;
+  z-index: 1;
+
+  @media ${devices.laptop} {
+    left: 2.5rem;
+  }
 `
 
-const GreenRectangle = styled.div`
+const PurpleCircle = styled.div`
   position: absolute;
-  width: 10.5em;
-  height: 18.375em;
-  left: calc(13% + 1.75em);
-  top: 0.15em;
-  border: 2px solid ${colors.green};
+  z-index: 2;
+  right: 1.5rem;
+  top: 0.5rem;
+
+  @media ${devices.laptop} {
+    left: 1rem;
+  }
+`
+
+const RedSprinkle = styled.div`
+  position: absolute;
+  right: 2.5rem;
+  top: -1.9rem;
+  z-index: 3;
+
+  @media ${devices.laptop} {
+    left: 0;
+  }
+  
 `
 
 export default function Home({ homepage }) {
@@ -246,9 +272,15 @@ export default function Home({ homepage }) {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <ShapesContainer>
-        <YellowSquare />
-        <PinkRectangle />
-        <GreenRectangle />
+        <RedSprinkle>
+          <Sprinkle />
+        </RedSprinkle>
+        <PurpleCircle>
+          <Circle />
+        </PurpleCircle>
+        <YellowSquare>
+          <Square />
+        </YellowSquare>
       </ShapesContainer>
       <PageContainer>
         <TextContainer>
@@ -266,7 +298,7 @@ export default function Home({ homepage }) {
             const inactive = l.link_label == "view my work"
             return (
               inactive ? 
-                <InactiveLink>
+                <InactiveLink key={i}>
                   <p>come back to view my work soon!</p>
                 </InactiveLink> :
                 <LinkContainer key={i}>

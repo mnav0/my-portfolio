@@ -6,12 +6,12 @@ const GlobalStyle = createGlobalStyle`
     body {
         padding: 2rem 5.5%;
         width: 100%;
-        background-color: ${colors.lightPurple};
+        background-color: ${colors.cream};
     }
     h1 {
-        font-family: PPNeueMachina-Ultrabold;
-        font-weight: 800;
-        color: ${colors.darkPurple};
+        font-family: ClashDisplay-Regular;
+        font-weight: 400;
+        color: ${colors.darkBlue};
         font-size: 5.75em;
         margin-bottom: 0.25em;
 
@@ -20,13 +20,13 @@ const GlobalStyle = createGlobalStyle`
         }
     } 
     h2, h3, h4, h5 {
-        font-family: PPNeueMachina-Regular;
+        font-family: ClashDisplay-Regular;
         font-weight: 400;
     }
     p, a  {
         font-family: ObjectSans-Regular;
         font-weight: 400;
-        color: ${colors.darkPurple};
+        color: ${colors.darkBlue};
         font-size: 1em;
         line-height: 1.4;
         text-decoration: none;

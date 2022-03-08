@@ -1,16 +1,4 @@
 @font-face {
-  font-family: "PPNeueMachina-Regular";
-  src: url("../styles/PPNeueMachina-Regular.otf"),
-    url("../styles/PPNeueMachina-Regular.woff");
-}
-  
-@font-face {
-  font-family: "PPNeueMachina-Ultrabold";
-  src: url("../styles/PPNeueMachina-Ultrabold.otf"),
-    url("../styles/PPNeueMachina-Ultrabold.woff");
-}
-  
-@font-face {
   font-family: "ObjectSans-Regular";
   src: url("../styles/PPObjectSans-Regular.otf"),
     url("../styles/PPObjectSans-Regular.woff");
@@ -20,4 +8,10 @@
   font-family: "ObjectSans-Bold";
   src: url("../styles/PPObjectSans-Bold.otf"),
     url("../styles/PPObjectSans-Bold.woff");
+}
+
+@font-face {
+  font-family: "ClashDisplay-Regular";
+  src: url("../styles/ClashDisplay-Regular.otf"),
+    url("../styles/ClashDisplay-Regular.woff");
 }
