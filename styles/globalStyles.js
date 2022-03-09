@@ -4,7 +4,7 @@ import { devices } from "./devices"
 
 const GlobalStyle = createGlobalStyle`  
     body {
-        padding: 2rem 5.5%;
+        padding: 2rem 5.5% !important;
         width: 100%;
         background-color: ${colors.cream};
     }
