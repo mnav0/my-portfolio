@@ -4,7 +4,7 @@ import { devices } from "./devices"
 
 const GlobalStyle = createGlobalStyle`  
     body {
-        padding: 2rem 5.5% !important;
+        padding: 4rem 5.5% 2rem 5.5% !important;
         width: 100%;
         background-color: ${colors.cream};
     }
@@ -19,9 +19,22 @@ const GlobalStyle = createGlobalStyle`
             font-size: 4em;
         }
     } 
-    h2, h3, h4, h5 {
+    h2 {
         font-family: ClashDisplay-Regular;
         font-weight: 400;
+        color: ${colors.darkBlue};
+        font-size: 3em;
+        margin: 0;
+    }
+    h3, h4 {
+        font-family: ClashDisplay-Regular;
+        font-weight: 400;
+    }
+    h5 {
+        font-family: ClashDisplay-Regular;
+        font-weight: 400;
+        font-size: 1.25em;
+        margin: 0.25em 0;
     }
     p, a  {
         font-family: ObjectSans-Regular;

@@ -19,3 +19,13 @@ export const CustomLink = (type, element, content, index, linkResolver) => {
         </Link>
     )
 }
+
+export const getType = ( types ) => {
+    let parsedTypes = []
+
+    types.forEach((type) => {
+        parsedTypes.push(type.type)
+    })
+
+    return parsedTypes;
+}

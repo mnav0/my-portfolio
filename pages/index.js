@@ -1,17 +1,16 @@
-import { Client } from "../prismicConfiguration";
+import { client } from "../prismicConfiguration";
 import { RichText } from "prismic-reactjs";
-import Link from "next/link"
 import styled from "styled-components"
 import GlobalStyle from "../styles/globalStyles";
 import { colors } from "../styles/colors"
 import { devices } from "../styles/devices"
-import Arrow from "../assets/arrow.svg"
 import Sparkle from "../assets/sun-rays.svg"
 import Sprinkle from "../assets/Sprinkle.js"
 import Circle from "../assets/Circle"
 import Square from "../assets/Square.js"
 import Img from "next/image";
 import Head from "next/head";
+import ArrowLink from "../components/arrowLink";
 
 const PageContainer = styled.div`
   position: absolute;
@@ -106,110 +105,16 @@ const LinksContainer = styled.div`
   }
 `
 
-const LinkContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  margin-top: 1em;
-  width: 16em;
-
-  & p {
-    margin: 0 1em 0 0;
-    font-size: 1.5em;
-  }
-
-  & a {
-    margin-right: 1em;
-    cursor: pointer;
-    font-size: 1.5em;
-  }
-
-  & a:hover {
-    margin-right: 1.5em;
-    transition: margin-right 0.1s ease-in-out;
-  }
-
-  @media ${devices.tabletPortrait} {
-    width: 9.6em;
-
-    & p {
-      font-size: 1em;
-    }
-    & a {
-      font-size: 1em;
-      margin-right: 0.5em;
-    }
-    & a:hover {
-      margin-right: 0.75em;
-    }
-  }
-
-  @media ${devices.mobile} {
-    width: 8.5em;
-
-    & a {
-      margin-right: 0.25em;
-    }
-    & a:hover {
-      margin-right: 0.5em;
-    }
-  }
-`
-
-const InactiveLink = styled.div`
-  margin-top: 1em;
-  width: 30em;
-  
-  & p {
-    margin: 0 1em 0 0;
-    font-size: 1.5em;
-  }
-
-  @media ${devices.tabletPortrait} {
-    width: 20em;
-
-    & p {
-      font-size: 1em;
-    }
-  }
-`
-
-const ArrowContainer = styled.div`
-  width: 2.25em;
-  height: 0.75em;
-  margin-right: 3em;
-  margin-top: 0.5em;
-
-  @media ${devices.tabletPortrait} {
-    margin-top: 0.2em;
-    margin-right: 1.5em;
-    width: 2em;
-  }
-
-  @media ${devices.mobile} {
-    width: 1.5em;
-    margin-right: 1em;
-  }
-`
-
 const ShapesContainer = styled.div`
   position: relative;
   left: -5.5%;
   width: 13%;
-  top: 9.2rem;
+  top: 7.3rem;
 
   @media ${devices.laptop} {
-    top: 2.5em;
+    top: 0.5em;
     width: 89%;
     left: 5.5%;
-  }
-
-  @media ${devices.tabletPortrait} {
-
-  }
-
-  @media ${devices.mobile} {
-
   }
 `
 
@@ -295,21 +200,8 @@ export default function Home({ homepage }) {
 
         <LinksContainer>
           {data.links.map((l, i) => {
-            const inactive = l.link_label == "view my work"
             return (
-              inactive ? 
-                <InactiveLink key={i}>
-                  <p>come back to view my work soon!</p>
-                </InactiveLink> :
-                <LinkContainer key={i}>
-                  <Link href={extLinkResolverHome(l.link)}
-                  >
-                    <a target={l.link.target || l.link_label == "resume" ? "_blank" : ""}>{l.link_label}</a>
-                  </Link>
-                  <ArrowContainer>
-                    <Img src={Arrow} />
-                  </ArrowContainer>
-                </LinkContainer>
+                <ArrowLink link={l.link} label={l.link_label} newTab={l.link.target || l.link_label == "resume"} key={i} large />
               )
           })}
         </LinksContainer>
@@ -319,7 +211,8 @@ export default function Home({ homepage }) {
 }
 
 export async function getStaticProps() {
-  const homepage = await Client.getSingle("homepage");
+  const res = await client.query();
+  const homepage = await client.getSingle("homepage");
 
   return {
     props: {
