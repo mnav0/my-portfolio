@@ -168,7 +168,15 @@ export default function Project({ project }) {
         <p>{data.extended_description[0].text}</p>
       </Overview>
       <ProjectDetailsContainer>
-        <p>MORE INFO COMING SOON - to hear more in the meantime,&nbsp;<Link href="mailto:mnavracruz@gmail.com">contact me!</Link></p>
+        <p>MORE INFO COMING SOON - in the meantime,
+        {data.finished_project_link.url &&
+          <>
+            <Link href={data.finished_project_link.url}> view the final website</Link>
+            <>&nbsp;or</>
+          </>
+        }
+        <Link href="mailto:mnavracruz@gmail.com"> contact me to hear more!</Link>
+        </p>
       </ProjectDetailsContainer>
     </>
   )
