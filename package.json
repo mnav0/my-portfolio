@@ -11,7 +11,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@prismicio/client": "^5.1.1",
+    "@prismicio/client": "^6.6.4",
     "@prismicio/next": "^0.1.0",
     "@prismicio/react": "^2.1.2",
     "@prismicio/slice-simulator-react": "^0.2.0",
