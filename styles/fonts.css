@@ -15,3 +15,8 @@
   src: url("../styles/ClashDisplay-Regular.otf"),
     url("../styles/ClashDisplay-Regular.woff");
 }
+
+@font-face {
+  font-family: "BentogaItalic-Thin";
+  src: url("../styles/BentogaItalic-Thin.otf");
+}

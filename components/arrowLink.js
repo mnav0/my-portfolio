@@ -25,58 +25,10 @@ const ArrowContainer = styled.div`
 `
 
 const LinkContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  margin-top: 1em;
-  width: ${(props) => props.large ? `16em` : `20em`};
 
-  & p {
-    margin: 0 1em 0 0;
-    font-size: ${(props) => props.large ? `1.5em` : `1.125em`};
-  }
-
-  & a {
-    margin-right: ${(props) => props.back ? `0` : `1em`};
-    margin-left: ${(props) => props.back ? `1em` : `0`};
-    cursor: pointer;
-    font-size: ${(props) => props.large ? `1.5em` : `1.125em`};
-  }
-
-  & a:hover {
-    margin-left: ${(props) => props.back ? `1.5em` : `0`};
-    margin-right: ${(props) => props.back ? `0` : `1.5em`};
-    transition: all 0.1s ease-in-out;
-  }
-
-  @media ${devices.tabletPortrait} {
-    width: 9.9em;
-
-    & p {
-      font-size: ${(props) => props.large ? `1em` : `1.125em`};
-    }
-    & a {
-      font-size: 1em;
-      margin-right: 0.5em;
-    }
-    & a:hover {
-      margin-right: 0.75em;
-    }
-  }
-
-  @media ${devices.mobile} {
-    width: ${(props) => props.large ? `8.5em` : `11em`};
-
-    & a {
-      margin-right: 0.25em;
-    }
-    & a:hover {
-      margin-right: 0.5em;
-    }
-  }
 `
 
-const ArrowLink = ({ url, link, label, newTab, back, large }) => {
+const ArrowLink = ({ url, link, label, newTab }) => {
 
   const intLinkResolver = (doc) => {
     // URL for a category type
@@ -106,20 +58,10 @@ const ArrowLink = ({ url, link, label, newTab, back, large }) => {
   return (
     <>
       <GlobalStyle />
-      <LinkContainer back={back} large={large}>
-        {back && 
-          <ArrowContainer large={large} back={back}>
-            <Img src={BackArrow} />
-          </ArrowContainer>
-        }
+      <LinkContainer>
         <Link href={url ? url : intLinkResolver(link)}>
           <a target={newTab ? "_blank" : ""}>{label}</a>
         </Link>
-        {!back && 
-          <ArrowContainer large={large} back={back}>
-            <Img src={Arrow} />
-          </ArrowContainer>
-        }
       </LinkContainer>
     </>
   )
