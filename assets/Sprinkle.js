@@ -1,13 +1,17 @@
 import React from 'react';
+import { colors } from "../styles/colors"
 
-const Sprinkle = () => (
-  <svg height="84" width="84">
-   <path d="M41.6347 1L33.6946 19.0678L15.9461 10.7288L21.0838 28.7966L1 30.6497L15.9461 45.0113L3.8024 57.5198L21.0838 58.9096L17.8144 77.4407L33.6946 66.7853L41.6347 83L48.6407 66.7853L64.521 75.5876L60.7844 58.9096L79 56.5932L65.4551 44.0847L78.5329 30.6497L60.7844 28.7966L66.3892 11.6554L48.6407 19.0678L41.6347 1Z" 
-    stroke="#D95D39" 
-    strokeWidth="2" 
-    strokeLinejoin="bevel"
-    fill="none" />
-  </svg>
-)
+const DEFAULT_SIZE = 42;
+
+const Sprinkle = ({ size, stroke }) => {
+  const dimension = size ?? DEFAULT_SIZE;
+  const color = stroke ?? colors.action;
+
+  return (
+    <svg width={dimension} height={dimension} fill="none" >
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M21 6.24419L26.3549 1L28.3789 8.21881L35.6378 6.36223L33.7812 13.6211L41 15.6451L35.7558 21L41 26.3549L33.7812 28.3789L35.6378 35.6378L28.3789 33.7812L26.3549 41L21 35.7558L15.6451 41L13.6211 33.7812L6.36223 35.6378L8.21881 28.3789L1 26.3549L6.24419 21L1 15.6451L8.21881 13.6211L6.36223 6.36223L13.6211 8.21881L15.6451 1L21 6.24419Z" stroke={color} stroke-width="2" stroke-linejoin="bevel"/>
+    </svg>
+  )
+}
 
 export default Sprinkle;

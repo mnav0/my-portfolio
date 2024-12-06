@@ -1,13 +1,19 @@
 import React from 'react';
+import { colors } from "../styles/colors"
 
-const Circle = ({ size }) => {
+const DEFAULT_SIZE = 24;
+
+const Circle = ({ size, fill }) => {
+  const dimension = size ?? DEFAULT_SIZE;
+  const color = fill ?? colors.action;
+
   return (
-    <svg height={size ? size : "66"} width={size ? size : "66"}>
+    <svg height={dimension} width={dimension}>
       <circle
-        cx={size ? size / 2 : "33"}
-        cy={size ? size / 2 : "33"}
-        r={size ? size / 2 : "33"}
-        fill="#D6A1E9"
+        cx={dimension / 2}
+        cy={dimension / 2}
+        r={dimension / 2}
+        fill={color}
       />
     </svg>
   )

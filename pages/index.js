@@ -6,13 +6,25 @@ import { colors } from "../styles/colors"
 import { devices } from "../styles/devices"
 import Head from "next/head";
 import ArrowLink from "../components/arrowLink";
+import Square from "../assets/Square";
+import Circle from "../assets/Circle";
+import Sprinkle from "../assets/Sprinkle";
 
-const PageContainer = styled.div`
-  margin-top: 20em;
+const BlockContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40vh;
+  background-color: ${colors.action};
 
   @media ${devices.tabletLandscape} {
-    margin-top: 15em;
+    height: 15em;
   }
+`
+
+const PageContainer = styled.div`
+  margin-top: 40vh;
 `
 
 const TextContainer = styled.div`
@@ -25,13 +37,14 @@ const TextContainer = styled.div`
 `
 
 const ColumnContainer = styled.div`
-  width: 33%;
-  min-width: 25em;
   position: relative;
-  height: 20em;
+  width: 33%;
+  height: 22em;
+  min-width: 25em;
 
   & h1 {
-    margin-top: 0;
+    margin: 0;
+    line-height: 1;
   }
 
   & p {
@@ -40,6 +53,38 @@ const ColumnContainer = styled.div`
 
   @media ${devices.tabletLandscape} {
     height: 15em;
+  }
+
+  @media ${devices.tabletPortrait} {
+    min-width: 22em;
+  }
+
+  @media ${devices.mobile} {
+    min-width: 18em;
+  }
+`
+
+const LineContainer = styled.div`
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+
+  @media ${devices.mobile} {
+    align-items: center;
+
+    & h1 {
+      margin-top: 0.1em;
+    }
+  }
+`
+
+const SprinklesContainer = styled.div`
+  position: relative;
+
+  & svg:nth-child(2) {
+    position: absolute;
+    top: 0.5em;
+    left: 0.5em;
   }
 `
 
@@ -60,19 +105,6 @@ const LinksContainer = styled.div`
   }
 `
 
-const BlockContainer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 20em;
-  background-color: ${colors.action};
-
-  @media ${devices.tabletLandscape} {
-    height: 15em;
-  }
-`
-
 export default function Home({ homepage }) {
 
   const extLinkResolverHome = (doc) => {
@@ -90,19 +122,32 @@ export default function Home({ homepage }) {
   }
 
   const data = homepage.data
+  const titleSplit = data.title[0].text.split(" ");
 
   return (
     <>
       <GlobalStyle />
       <Head>
-        <title>Maggie Navracruz</title>
+        <title>Magdalena Navracruz</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <BlockContainer />
       <PageContainer>
         <TextContainer>
           <ColumnContainer>
-            <h1>{data.title[0].text}</h1>
+            <LineContainer>
+              <h1>{titleSplit[0]}</h1>
+              <SprinklesContainer>
+                <Square fill={colors.accentSparkle} />
+                <Circle fill={colors.accentText} />
+              </SprinklesContainer>
+            </LineContainer>
+            <LineContainer>
+              <SprinklesContainer>
+                <Sprinkle />
+              </SprinklesContainer>
+              <h1>{titleSplit[1]}</h1>
+            </LineContainer>
             <ColumnFooter>
               <h3>{data.subtitle[0].text}</h3>
             </ColumnFooter>
