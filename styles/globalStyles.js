@@ -46,14 +46,16 @@ const GlobalStyle = createGlobalStyle`
         font-family: ObjectSans-Bold;
         font-weight: 600;
     }
-    p a {
-        color: ${colors.action};
-    }
     a {
         font-family: ObjectSans-Regular;
         color: ${colors.action};
         text-transform: uppercase;
         text-decoration: none;
+    }
+    p a {
+        color: ${colors.action};
+        text-transform: none;
+        font-size: inherit
     }
     a:hover {
         text-decoration: underline;

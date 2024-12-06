@@ -9,6 +9,7 @@ import ArrowLink from "../components/arrowLink";
 import Square from "../assets/Square";
 import Circle from "../assets/Circle";
 import Sprinkle from "../assets/Sprinkle";
+import Swoop from "../assets/Swoop";
 
 const BlockContainer = styled.div`
   position: absolute;
@@ -38,9 +39,8 @@ const TextContainer = styled.div`
 
 const ColumnContainer = styled.div`
   position: relative;
-  width: 33%;
-  height: 22em;
-  min-width: 25em;
+  width: 25em;
+  min-height: 22em;
 
   & h1 {
     margin: 0;
@@ -52,15 +52,16 @@ const ColumnContainer = styled.div`
   }
 
   @media ${devices.tabletLandscape} {
-    height: 15em;
+    min-height: 18em;
   }
 
   @media ${devices.tabletPortrait} {
-    min-width: 22em;
+    width: 22em;
+    min-height: 22em;
   }
 
   @media ${devices.mobile} {
-    min-width: 18em;
+    width: 18em;
   }
 `
 
@@ -86,6 +87,25 @@ const SprinklesContainer = styled.div`
     top: 0.5em;
     left: 0.5em;
   }
+`
+
+const CalloutContainer = styled.div`
+  margin-top: 5em;
+  position: relative;
+
+  & svg {
+    position: absolute;
+    z-index: -1;
+    top: -3em;
+    left: -3em;
+  }
+
+  @media ${devices.mobile} {
+    & svg {
+      max-width: 100%;
+      left: 0;
+      overflow: hidden;
+    }
 `
 
 const ColumnFooter = styled.div`
@@ -121,7 +141,7 @@ export default function Home({ homepage }) {
     }
   }
 
-  const data = homepage.data
+  const data = homepage.data;
   const titleSplit = data.title[0].text.split(" ");
 
   return (
@@ -154,6 +174,13 @@ export default function Home({ homepage }) {
           </ColumnContainer>
           <ColumnContainer>
             {RichText.render(data.description, extLinkResolverHome)}
+
+            {data.show_callout && 
+              <CalloutContainer>
+                <Swoop />
+                {RichText.render(data.callout, extLinkResolverHome)}
+              </CalloutContainer>
+            }
             <ColumnFooter>
               <LinksContainer>
                 {data.links.map((l, i) => {
