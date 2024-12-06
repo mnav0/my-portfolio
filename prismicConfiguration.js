@@ -4,16 +4,16 @@ import * as Prismic from '@prismicio/client'
 export const repoName = 'maggie-navracruz'
 
 const routes = [
-  { type: 'homepage', path: '/' },
-  { type: 'work_page', path: '/work' },
-  {
-    type: 'page',
-    path: '/:uid',
-  },
-  {
-    type: 'project',
-    path: '/projects/:uid',
-  },
+  { type: 'homepage', path: '/' }
+  // { type: 'work_page', path: '/work' },
+  // {
+  //   type: 'page',
+  //   path: '/:uid',
+  // },
+  // {
+  //   type: 'project',
+  //   path: '/projects/:uid',
+  // },
 ]
 
 // -- Prismic API endpoint
