@@ -11,6 +11,9 @@ const GlobalStyle = createGlobalStyle`
         background-color: ${colors.primaryLight};
         background-image: url(${BACKGROUND_IMG});
         background-repeat: repeat;
+        -webkit-font-smoothing: antialiased;
+        -moz-font-smoothing: antialiased;
+        -o-font-smoothing: antialiased;
     }
     h1, h2 {
         font-family: BentogaItalic-Thin;

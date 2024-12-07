@@ -45,6 +45,10 @@ export const linkResolver = (doc) => {
     return `/${doc.uid}`
   }
 
+  if (doc.type === 'about') {
+    return `/about`
+  }
+
   if (doc.link_type === "Web" || doc.link_type === "Media") {
     return doc.url;
   } 
