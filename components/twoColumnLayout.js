@@ -11,7 +11,7 @@ const PADDING_MEDIUM = "6em";
 
 const Background = styled.div`
   position: relative;
-  margin: 6rem 0;
+  margin: 6em 0 4em;
 
   ${({ darkMode }) => darkMode && `
     background-color: ${colors.primaryDark};
@@ -40,7 +40,7 @@ const TextContainer = styled.div`
 
 const ColumnContainer = styled.div`
   position: relative;
-  max-width: 25em;
+  width: 25em;
 
   h3, h4, h5, h6 {
     margin: 0 0 0.25em;
@@ -55,11 +55,11 @@ const ColumnContainer = styled.div`
   }
 
   @media ${devices.tabletPortrait} {
-    max-width: 22em;
+    width: 22em;
   }
 
   @media ${devices.mobile} {
-    max-width: 18em;
+    width: 18em;
   }
 `
 

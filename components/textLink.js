@@ -37,7 +37,7 @@ const TextLink = ({ url, link, label, newTab }) => {
     <>
       <GlobalStyle />
         <Link href={url ? url : intLinkResolver(link)}>
-          <a target={newTab ? "_blank" : ""}>{label}</a>
+          {label}
         </Link>
     </>
   )
