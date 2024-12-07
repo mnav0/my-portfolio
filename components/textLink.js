@@ -4,14 +4,19 @@ import Link from "next/link";
 const TextLink = ({ url, link, label, newTab }) => {
 
   const intLinkResolver = (doc) => {
-    // URL for a category type
+    // URL for a project type
     if (doc.type === 'project') {
       return `/projects/${doc.uid}`
     }
   
-    // URL for a product type
+    // URL for the homepage
     if (doc.type === 'homepage') {
       return `/`
+    }
+
+    // URL for the about page
+    if (doc.type === 'about') {
+      return `/about`
     }
   
     // URL for a page type
