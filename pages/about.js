@@ -38,11 +38,11 @@ export default function About({ about }) {
         return (
           <TwoColumnLayout 
             key={index}
-            heading={data[`section_title_${index}`]?.[0].text} 
-            description={data[`description_${index}`]} 
-            links={data[`links_${index}`]} 
+            heading={data[`section_title_${index + 1}`]?.[0].text} 
+            description={data[`description_${index + 1}`]} 
+            links={data[`links_${index + 1}`]} 
             decorations={decorations[index]}
-            darkMode={index === 2}
+            darkMode={index === 1}
           />
         )
       })}

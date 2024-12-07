@@ -40,22 +40,26 @@ const TextContainer = styled.div`
 
 const ColumnContainer = styled.div`
   position: relative;
-  width: 25em;
+  max-width: 25em;
 
   h3, h4, h5, h6 {
-    margin: 0 0 0.5em;
+    margin: 0 0 0.25em;
   }
 
   p {
-    margin: 0 0 2em 0;
+    margin: 0;
+  }
+
+  p:last-child {
+    margin-bottom: 2em;
   }
 
   @media ${devices.tabletPortrait} {
-    width: 22em;
+    max-width: 22em;
   }
 
   @media ${devices.mobile} {
-    width: 18em;
+    max-width: 18em;
   }
 `
 
@@ -118,7 +122,7 @@ export default function TwoColumnLayout({
     <Background darkMode={darkMode}>
       <TextContainer>
         <ColumnContainer>
-          <HeadingWithSprinkle heading={heading} decorations={decorations} reverseHeadingBelow />
+          <HeadingWithSprinkle heading={heading} decorations={decorations} />
           {headingReverse && <HeadingWithSprinkle heading={headingReverse} decorations={decorationsReverse} reverse /> }
           <ColumnFooter padding={PADDING_LARGE}>
             <h3>{subheading}</h3>

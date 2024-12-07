@@ -4,17 +4,14 @@ import { devices } from "../styles/devices";
 
 const LineContainer = styled.div`
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
+  align-items: center;
 
   & h1, h2 {
-    margin: ${props => props.reverseHeadingBelow ? "0" : "0 0 0 0.5em"};
+    margin: ${props => props.reverse ? "0 0 0 0.25em" : "0 0.25em 0 0"};
     line-height: 1;
   }
 
   @media ${devices.mobile} {
-    align-items: flex-start;
-
     & h1, h2 {
       margin-top: 0.1em;
     }
@@ -31,7 +28,7 @@ const SprinklesContainer = styled.div`
   }
 `
 
-export default function HeadingWithSprinkle({ heading, decorations, reverse, reverseHeadingBelow }) {
+export default function HeadingWithSprinkle({ heading, decorations, reverse }) {
   
   const sprinklesComponent =
     <SprinklesContainer>
@@ -45,7 +42,7 @@ export default function HeadingWithSprinkle({ heading, decorations, reverse, rev
   const headingComponent = <h2>{heading}</h2>;
 
   return (
-    <LineContainer reverseHeadingBelow>
+    <LineContainer reverse={reverse}>
       {reverse ?
         <React.Fragment>
           {sprinklesComponent}
