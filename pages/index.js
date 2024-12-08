@@ -6,8 +6,7 @@ import Square from "../components/decorations/Square";
 import Circle from "../components/decorations/Circle";
 import Sprinkle from "../components/decorations/Sprinkle";
 import TwoColumnLayout from "../components/twoColumnLayout";
-import GlobalStyle from "../styles/globalStyles";
-import Head from 'next/head';
+import GlobalHeader from "../components/globalHeader";
 
 const BlockContainer = styled.div`
   position: absolute;
@@ -44,11 +43,7 @@ export default function Home({ homepage }) {
 
     return (
       <>
-        <GlobalStyle />
-        <Head>
-          <title>Magdalena Navracruz</title>
-          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        </Head>
+        <GlobalHeader />
         <BlockContainer />
         <PageContainer>
           <TwoColumnLayout
