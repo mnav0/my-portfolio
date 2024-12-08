@@ -30,7 +30,7 @@ export default function About({ about }) {
     return (
       <>
         <GlobalHeader />
-        <Navigation />
+        <Navigation selectedRoute={"about"} />
         {numSections.map((section, index) => {
           return (
             <TwoColumnLayout 

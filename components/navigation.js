@@ -1,9 +1,10 @@
 import Link from "next/link";
 import styled from "styled-components";
 import { devices } from "../styles/devices";
+import { colors } from "../styles/colors";
 
 const NavigationContainer = styled.div`
-  padding: 2em 0;
+  padding: 0 0 2em;
   display: flex;
   justify-content: space-between;
 `
@@ -26,13 +27,20 @@ const Pages = styled.div`
   }
 `
 
-export default function Navigation() {
+const NavLink = ({ selected, ...props }) => <Link {...props}></Link>
+
+const PageLink = styled(NavLink)`
+  text-decoration: ${(props) => props.selected ? `underline ${colors.action}` : 'none'};
+`
+
+export default function Navigation({ selectedRoute }) {
+  debugger;
   return (
       <NavigationContainer>
         <HomeLink href="/">Maggie Navracruz</HomeLink>
         <Pages>
-          <Link href="/work">Work</Link>
-          <Link href="/about">About</Link>
+          <PageLink href="/work" selected={selectedRoute === "work"}>Work</PageLink>
+          <PageLink href="/about" selected={selectedRoute === "about"}>About</PageLink>
         </Pages>
       </NavigationContainer>
   )
