@@ -67,7 +67,7 @@ const ProjectContainer = styled.div`
 
 export default function Work({ projects }) {
   const [ hover, setHover ] = useState(-1);
-  console.log(projects)
+
   if (projects) {
     return (
       <>
