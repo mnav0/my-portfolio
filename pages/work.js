@@ -4,13 +4,10 @@ import GlobalHeader from "../components/globalHeader";
 import { PrismicRichText } from "@prismicio/react";
 import { useState } from "react";
 import { devices } from "../styles/devices";
+import Link from "next/link";
 
 const GRID_COLUMNS = [
   5, 7, 12, 4, 4, 4
-]
-
-const GRID_COLUMNS_TABLET = [
-  5, 7, 12, 12, 7, 5
 ]
 
 const Projects = styled.div`
@@ -18,33 +15,32 @@ const Projects = styled.div`
   gap: 1em;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(3, auto);
-  height: 30em;
+  height: 32em;
+  width: 100%;
 
-  @media ${devices.laptop} {
-    height: 40em;
+  @media screen and ${devices.laptop} { 
+    height: 45em;
   }
 
-  @media ${devices.tabletLandscape} {
-    height: 50em;
-  }
-
-  @media ${devices.tablet} {
+  @media screen and ${devices.tabletPortrait} { 
     height: 75em;
   }
 
-  @media ${devices.mobile} {
-    height: 60em;
+  @media screen and ${devices.mobile} {
+    height: 50em;
   }
 `
 
-const ProjectContainer = styled.div`
+const Project = ({ color, hovered, span, ...props}) => <div {...props}></div>
+
+const ProjectContainer = styled(Project)`
   padding: 0 3em;
   border: 1px solid ${(props) => props.color};
   cursor: pointer;
-  ${(props) => props.hovered && `box-shadow: 2px 4px 8px 0px rgba(0, 0, 0, 0.25)`};
+  box-shadow: ${(props) => props.hovered ? "2px 4px 8px 0px rgba(0, 0, 0, 0.25)" : "0"};
   transition: all 0.3s ease-in-out;
   min-height: 10em;
-  grid-column-end: ${props => `span ${GRID_COLUMNS[props.index]}`};
+  grid-column-end: ${props => `span ${props.span || 6}`};
   display: flex;
   align-items: center;
 
@@ -52,16 +48,21 @@ const ProjectContainer = styled.div`
     margin: 0;
   }
 
-  @media ${devices.tabletLandscape} { 
-    grid-column-end: ${props => `span ${GRID_COLUMNS_TABLET[props.index]}`};
+  & a {
+    text-transform: none;
   }
 
-  @media ${devices.tablet} { 
-    grid-column-end: span 12;
+  & a:hover {
+    text-decoration: none;
+    text-transform: none;
   }
 
-  @media ${devices.mobile} {
+  @media ${devices.tabletLandscape} {
     padding: 0 2em;
+  }
+
+  @media screen and ${devices.tabletPortrait} { 
+    grid-column-end: span 12;
   }
 `
 
@@ -75,14 +76,18 @@ export default function Work({ projects }) {
         <Projects>
           {projects.map((project, index) => {
             const { data } = project;
+
+            const link = `/projects/${project.uid}`;
             return (
               <ProjectContainer 
                 key={index}
                 onMouseEnter={() => setHover(index)} onMouseLeave={() => setHover(-1)}
-                index={index}
+                span={GRID_COLUMNS[index]}
                 color={data.main_color}
-                hovered={hover === index}>
-                <PrismicRichText field={data.title} />
+                hovered={hover === index || undefined}>
+                <Link href={link}>
+                  <PrismicRichText field={data.title} />
+                </Link>
               </ProjectContainer>
             )
           })}

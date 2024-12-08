@@ -76,9 +76,9 @@ const CalloutContainer = styled.div`
 
   @media ${devices.mobile} {
     & svg {
-      max-width: 100%;
-      left: 0;
-      overflow: hidden;
+      max-width: 24em;
+      top: -2em;
+      left: -5em;
     }
 `
 
