@@ -5,6 +5,7 @@ import { PrismicRichText } from "@prismicio/react";
 import { useState } from "react";
 import { devices } from "../styles/devices";
 import Link from "next/link";
+import Navigation from "../components/navigation";
 
 const GRID_COLUMNS = [
   5, 7, 12, 4, 4, 4
@@ -15,15 +16,16 @@ const Projects = styled.div`
   gap: 1em;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(3, auto);
-  height: 32em;
+  height: 40em;
   width: 100%;
+  padding-bottom: 1em;
 
   @media screen and ${devices.laptop} { 
-    height: 45em;
+    height: 50em;
   }
 
   @media screen and ${devices.tabletPortrait} { 
-    height: 75em;
+    height: 90em;
   }
 
   @media screen and ${devices.mobile} {
@@ -37,7 +39,7 @@ const ProjectContainer = styled(Project)`
   padding: 0 3em;
   border: 1px solid ${(props) => props.color};
   cursor: pointer;
-  box-shadow: ${(props) => props.hovered ? "2px 4px 8px 0px rgba(0, 0, 0, 0.25)" : "0"};
+  box-shadow: ${(props) => props.hovered ? "2px 4px 8px 0px rgba(0, 0, 0, 0.25)" : "none"};
   transition: all 0.3s ease-in-out;
   min-height: 10em;
   grid-column-end: ${props => `span ${props.span || 6}`};
@@ -61,7 +63,7 @@ const ProjectContainer = styled(Project)`
     padding: 0 2em;
   }
 
-  @media screen and ${devices.tabletPortrait} { 
+  @media screen and ${devices.tabletLandscape} { 
     grid-column-end: span 12;
   }
 `
@@ -73,6 +75,7 @@ export default function Work({ projects }) {
     return (
       <>
         <GlobalHeader />
+        <Navigation />
         <Projects>
           {projects.map((project, index) => {
             const { data } = project;
@@ -84,7 +87,7 @@ export default function Work({ projects }) {
                 onMouseEnter={() => setHover(index)} onMouseLeave={() => setHover(-1)}
                 span={GRID_COLUMNS[index]}
                 color={data.main_color}
-                hovered={hover === index || undefined}>
+                hovered={hover === index}>
                 <Link href={link}>
                   <PrismicRichText field={data.title} />
                 </Link>

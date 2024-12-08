@@ -11,6 +11,13 @@
 }
 
 @font-face {
+  font-family: "ObjectSans-Heavy";
+  src: url("../styles/PPObjectSans-Heavy.otf"),
+    url("../styles/PPObjectSans-Heavy.woff");
+}
+
+
+@font-face {
   font-family: "ClashDisplay-Regular";
   src: url("../styles/ClashDisplay-Regular.otf"),
     url("../styles/ClashDisplay-Regular.woff");

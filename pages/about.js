@@ -5,6 +5,7 @@ import Circle from "../components/decorations/Circle";
 import Sprinkle from "../components/decorations/Sprinkle";
 import TwoColumnLayout from "../components/twoColumnLayout";
 import GlobalHeader from "../components/globalHeader";
+import Navigation from "../components/navigation";
 
 export default function About({ about }) {
   const { data } = about;
@@ -29,6 +30,7 @@ export default function About({ about }) {
     return (
       <>
         <GlobalHeader />
+        <Navigation />
         {numSections.map((section, index) => {
           return (
             <TwoColumnLayout 

@@ -27,12 +27,9 @@ export async function getStaticPaths() {
   return { paths, fallback: false };
 }
 
-export async function getStaticProps(pageContext) {
-  const project = await client.getByUID("project", pageContext.params.uid);
-
+export async function getStaticProps(context) {
   return {
-    props: {
-      project
-    },
-  };
+    // Passed to the page component as props
+    props: { project: {} },
+  }
 }
