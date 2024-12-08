@@ -1,4 +1,3 @@
-import GlobalStyle from "../styles/globalStyles";
 import Head from 'next/head';
 
 export default function GlobalHeader() {
@@ -8,7 +7,6 @@ export default function GlobalHeader() {
         <title>Magdalena Navracruz</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <GlobalStyle />
     </>
   )
 }

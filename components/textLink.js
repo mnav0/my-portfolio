@@ -1,4 +1,3 @@
-import GlobalStyle from "../styles/globalStyles";
 import Link from "next/link";
 
 const TextLink = ({ url, link, label, newTab }) => {

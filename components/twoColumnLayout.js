@@ -9,7 +9,9 @@ import Swoop from "../components/decorations/Swoop";
 const PADDING_LARGE = "12.4em";
 const PADDING_MEDIUM = "6em";
 
-const Background = styled.div`
+const BackgroundContainer = ({ darkMode, ...props }) => <div {...props}></div>
+
+const Background = styled(BackgroundContainer)`
   position: relative;
   margin: 6em 0 4em;
 
