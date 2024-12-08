@@ -2,7 +2,9 @@ import React from 'react';
 import styled from "styled-components";
 import { devices } from "../styles/devices";
 
-const LineContainer = styled.div`
+const Line = ({ reverse, ...props}) => <div {...props}></div>
+
+const LineContainer = styled(Line)`
   display: flex;
   align-items: center;
 

@@ -1,6 +1,7 @@
 import { client } from "../../prismic";
 import GlobalHeader from "../../components/globalHeader";
 import Link from "next/link";
+import TwoColumnLayout from "../../components/twoColumnLayout";
 
 export default function Project({ project }) {
   const { data } = project;
@@ -8,8 +9,22 @@ export default function Project({ project }) {
   return (
     <>
       <GlobalHeader />
-      <Link href="/work">Back to work</Link>
-      <h1>Coming Soon</h1>
+      {data.display ?
+        (data.sections.map((section, index) => {
+          return (
+            <TwoColumnLayout 
+              key={index}
+              heading={section.section_title[0].text} 
+              description={section.text} 
+            />
+          )
+        })) : (
+          <>
+            <Link href="/work">Back to work</Link>
+            <h1>Coming Soon</h1>
+          </>
+        )
+      }
     </>
   )
 }
@@ -28,8 +43,9 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
+  const project = await client.getSingle("project", context.uid);
+
   return {
-    // Passed to the page component as props
-    props: { project: {} },
+    props: { project },
   }
 }

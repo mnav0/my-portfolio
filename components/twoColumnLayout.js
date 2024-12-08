@@ -54,6 +54,11 @@ const ColumnContainer = styled.div`
     margin-bottom: 2em;
   }
 
+  img {
+    width: 100%;
+    height: auto;
+  }
+
   @media ${devices.tabletPortrait} {
     width: 22em;
   }
@@ -82,7 +87,10 @@ const CalloutContainer = styled.div`
     }
 `
 
-const ColumnFooter = styled.div`
+
+const Footer = ({ padding, ...props}) => <div {...props}></div>
+
+const ColumnFooter = styled(Footer)`
   margin-top: ${props => props.padding || "2em"};
 `
 

@@ -16,20 +16,20 @@ const Projects = styled.div`
   gap: 1em;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(3, auto);
-  height: 40em;
+  height: 30em;
   width: 100%;
   padding-bottom: 1em;
 
   @media screen and ${devices.laptop} { 
-    height: 50em;
+    height: 35em;
+  }
+
+  @media screen and ${devices.tabletLandscape} { 
+    height: 45em;
   }
 
   @media screen and ${devices.tabletPortrait} { 
-    height: 90em;
-  }
-
-  @media screen and ${devices.mobile} {
-    height: 50em;
+    height: 55em;
   }
 `
 
@@ -41,22 +41,22 @@ const ProjectContainer = styled(Project)`
   cursor: pointer;
   box-shadow: ${(props) => props.hovered ? "2px 4px 8px 0px rgba(0, 0, 0, 0.25)" : "none"};
   transition: all 0.3s ease-in-out;
-  min-height: 10em;
+  min-height: 5rem;
   grid-column-end: ${props => `span ${props.span || 6}`};
   display: flex;
   align-items: center;
+  position: relative;
 
   & p {
     margin: 0;
   }
 
   & a {
-    text-transform: none;
-  }
-
-  & a:hover {
-    text-decoration: none;
-    text-transform: none;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;;
   }
 
   @media ${devices.tabletLandscape} {
@@ -88,9 +88,8 @@ export default function Work({ projects }) {
                 span={GRID_COLUMNS[index]}
                 color={data.main_color}
                 hovered={hover === index}>
-                <Link href={link}>
                   <PrismicRichText field={data.title} />
-                </Link>
+                  <Link href={link} />
               </ProjectContainer>
             )
           })}
