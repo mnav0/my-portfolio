@@ -2,6 +2,8 @@ import { client } from "../../prismic";
 import GlobalHeader from "../../components/globalHeader";
 import Link from "next/link";
 import TwoColumnLayout from "../../components/twoColumnLayout";
+import Navigation from "../../components/navigation";
+import FullPageHeading from "../../components/fullPageHeading";
 
 export default function Project({ project }) {
   const { data } = project;
@@ -9,6 +11,8 @@ export default function Project({ project }) {
   return (
     <>
       <GlobalHeader />
+      <Navigation darkMode />
+      <FullPageHeading heading={data.title[0].text} subheading={data.tools[0]?.text} accentText={data.date} />
       {data.display ?
         (data.sections.map((section, index) => {
           return (
@@ -20,8 +24,8 @@ export default function Project({ project }) {
           )
         })) : (
           <>
-            <Link href="/work">Back to work</Link>
-            <h1>Coming Soon</h1>
+            <p>MORE COMING SOON...</p>
+            <Link href="/work">Back</Link>
           </>
         )
       }
@@ -43,7 +47,8 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  const project = await client.getSingle("project", context.uid);
+  console.log(context)
+  const project = await client.getByUID("project", context.params.uid);
 
   return {
     props: { project },

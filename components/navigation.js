@@ -3,10 +3,30 @@ import styled from "styled-components";
 import { devices } from "../styles/devices";
 import { colors } from "../styles/colors";
 
-const NavigationContainer = styled.div`
-  padding: 0 0 2em;
+const DarkMode = ({ darkMode, ...props }) => <div {...props}></div>
+
+const DarkModeWrapper = styled(DarkMode)`
+  height: ${props => props.darkMode ? "4.75em" : "auto"};
+`
+
+const NavigationWrapper = ({ darkMode, ...props }) => <div {...props}></div>
+
+const NavigationContainer = styled(NavigationWrapper)`
   display: flex;
   justify-content: space-between;
+
+  ${({ darkMode }) => darkMode && `
+    background-color: ${colors.primaryDark};
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 4em 5.5vw 2em 5.5vw;
+
+    h3, h4, h5, a {
+      color: ${colors.primaryLight};
+    }
+`}
 `
 
 const HomeLink = styled(Link)`
@@ -33,15 +53,16 @@ const PageLink = styled(NavLink)`
   text-decoration: ${(props) => props.selected ? `underline ${colors.action}` : 'none'};
 `
 
-export default function Navigation({ selectedRoute }) {
-  debugger;
+export default function Navigation({ darkMode, selectedRoute }) {
   return (
-      <NavigationContainer>
+    <DarkModeWrapper darkMode={darkMode}>
+      <NavigationContainer darkMode={darkMode}>
         <HomeLink href="/">Maggie Navracruz</HomeLink>
         <Pages>
           <PageLink href="/work" selected={selectedRoute === "work"}>Work</PageLink>
           <PageLink href="/about" selected={selectedRoute === "about"}>About</PageLink>
         </Pages>
       </NavigationContainer>
+    </DarkModeWrapper>
   )
 }
