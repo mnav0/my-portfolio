@@ -1,5 +1,5 @@
 import { client } from "../../prismic";
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import GlobalHeader from "../../components/globalHeader";
 import Navigation from "../../components/navigation";
 import FullPageHeading from "../../components/fullPageHeading";
@@ -9,23 +9,34 @@ import { devices } from "../../styles/devices";
 import Square from "../../components/decorations/Square";
 import Circle from "../../components/decorations/Circle";
 import Sprinkle from "../../components/decorations/Sprinkle";
-import { RichText } from "prismic-reactjs";
-import Link from "next/link";
+import { PrismicRichText } from "@prismicio/react";
+import { Link } from 'react-scroll';
 
 const TwoColumns = styled.div`
   margin: 0;
   display: flex;
   justify-content: space-between;
   position: relative;
+
+  @media ${devices.tabletPortrait} {
+    flex-direction: column;
+  }
 `
 
 const RightColumn = styled.div`
   position: relative;
   width: 50%;
+  padding-left: 1em;
 
   & img {
     width: 100%;
     height: auto;
+  }
+
+  @media ${devices.tabletPortrait} {
+    width: 100%;
+    padding-left: 0;
+    top: 6em;
   }
 `
 
@@ -36,53 +47,73 @@ const StickyMenu = styled.ul`
   list-style: none;
   padding: 0;
   top: 3.5em;
-  margin-top: 3em;
-`
-
-const ListItem = ({ active, hover, ...props}) => <li {...props}></li>
-
-const MenuItem = styled(ListItem)`
-  font-family: BentogaItalic-Thin;
-  text-transform: uppercase;
-  font-weight: 400;
-  color: ${colors.primaryDark};
-  font-size: ${props => props.active ? "3.75em" : "1.25em"};
-  transition: all 0.1s ease-in;
-  cursor: pointer;
-
-  & svg {
-    margin: ${props => props.active ? "0 0 0 0.05em" : "0.05em 0 0 0.2em"};
-    vertical-align: ${props => (props.hover && !props.active) ? "baseline" : "middle"};
-  }
+  margin-top: 1.25em;
 
   @media ${devices.tabletPortrait} {
-    font-size: ${props => props.active ? "3.25em" : "1.25em"};
-  }
+    height: auto;
+    width: 100%;
+    z-index: 100;
+    margin: 0;
+    padding: 1em 0 0;
+    top: 0;
+    background: ${colors.primaryLight};
+    border-bottom: 1px solid ${colors.callout};
 
-  @media ${devices.mobile} {
-    font-size: ${props => props.active ? "2.5em" : "1.25em"};
+    & li {
+      display: inline-block;
+      margin: 0 2em 0.5em 0;
+    }
   }
 `
 
 const Divider = styled.div`
-  padding: 2em 0;
-  margin: 0;
-  min-height: 100vh;
+  padding: 0 0 4em;
+  margin-bottom: 2em;
 `
 
+export const NavLinks = styled(Link).attrs(() => ({
+  activeClass: 'active',
+}))`
+  font-family: BentogaItalic-Thin;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: ${colors.primaryDark};
+  font-size: 1.25em;
+  transition: all 0.1s ease-in;
+  cursor: pointer;
+
+  & svg {
+    display: none;
+    margin: 0 0 0.1em 0.1em;
+    vertical-align: middle;
+  }
+
+  &:hover {
+    text-decoration: none;
+
+    & svg {
+      display: inline-block;
+    }
+  }
+
+  &.active {
+    font-size: 3.75em;
+
+    & svg {
+      display: inline-block;
+    }
+
+    @media ${devices.tabletPortrait} {
+      font-size: 1.25em
+    }
+  }
+
+
+`;
+
 export default function Project({ project }) {
-  const [ selectedSection, setSelectedSection ] = useState(0);
-  const [ hover, setHover ] = useState(-1);
-  const ref = useRef(null);
   const { data } = project;
 
-  useEffect(() => {
-    if (ref.current) {
-      ref.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [selectedSection]);
-
- 
   const decorations = [
     <Circle size={15} />,
     <Square size={15} />,
@@ -101,38 +132,31 @@ export default function Project({ project }) {
         <TwoColumns>
           <StickyMenu>
             {data.sections.map((section, index) => {
-              const isActive = index === selectedSection;
-              const isHover = index === hover;
               return (
-                <MenuItem key={index} 
-                  active={isActive}
-                  hover={isHover}
-                  onClick={() => setSelectedSection(index)}
-                  onMouseEnter={() => setHover(index)} onMouseLeave={() => setHover(-1)}>
-                  {section.section_title[0].text}
-                  {(isActive || isHover) && 
+                <li key={index}>
+                  <NavLinks smooth spy to={`section-${index}`} offset={-100}>
+                    {section.section_title[0].text}
                     <React.Fragment>
                       {decorations[index]}
                     </React.Fragment>
-                  }
-                </MenuItem>
+                  </NavLinks>
+                </li>
               )
             })}
           </StickyMenu>
           <RightColumn>
-            {data.sections.map((section, index) => 
-              <Divider ref={selectedSection === index ? ref : null}>
-                {RichText.render(section.text)}
+            {data.sections.map((section, index) =>
+              <Divider id={`section-${index}`} key={index}>
+                <PrismicRichText field={section.text} />
               </Divider>
             )}
           </RightColumn>
         </TwoColumns>
-        : (
-          <>
-            <p>MORE COMING SOON...</p>
-            <Link href="/work">Back</Link>
-          </>
-        ) 
+      :
+        <>
+          <p>MORE COMING SOON!</p>
+          <a href="/work">Back to Work</a>
+        </>
       }
     </>
   )
@@ -140,14 +164,12 @@ export default function Project({ project }) {
 
 export async function getStaticPaths() {
   const projects = await client.getAllByType("project");
- 
-  // Get the paths we want to prerender based on posts
+
   // prerender all pages for faster initial page load
   const paths = projects.map((project) => ({
     params: { uid: project.uid },
   }))
- 
-  // { fallback: false } means other routes should 404
+
   return { paths, fallback: false };
 }
 
