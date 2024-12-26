@@ -131,11 +131,11 @@ export default function Project({ project }) {
       {data.sections?.length > 0 ?
         <TwoColumns>
           <StickyMenu>
-            {data.sections.map((section, index) => {
+            {data.sections?.map((section, index) => {
               return (
                 <li key={index}>
                   <NavLinks smooth spy to={`section-${index}`} offset={-100}>
-                    {section.section_title[0].text}
+                    {section.section_title[0]?.text}
                     <React.Fragment>
                       {decorations[index]}
                     </React.Fragment>
@@ -145,9 +145,9 @@ export default function Project({ project }) {
             })}
           </StickyMenu>
           <RightColumn>
-            {data.sections.map((section, index) =>
+            {data.sections?.map((section, index) =>
               <Divider id={`section-${index}`} key={index}>
-                <PrismicRichText field={section.text} />
+                <PrismicRichText field={section?.text} />
               </Divider>
             )}
           </RightColumn>
