@@ -128,7 +128,7 @@ export default function Project({ project }) {
       <GlobalHeader />
       <Navigation darkMode />
       <FullPageHeading heading={data.title[0].text} subheading={data.tools[0]?.text} accentText={data.date} />
-      {data.display ?
+      {data.sections?.length > 0 ?
         <TwoColumns>
           <StickyMenu>
             {data.sections.map((section, index) => {
