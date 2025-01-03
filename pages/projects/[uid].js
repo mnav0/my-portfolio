@@ -11,6 +11,7 @@ import Circle from "../../components/decorations/Circle";
 import Sprinkle from "../../components/decorations/Sprinkle";
 import { PrismicRichText } from "@prismicio/react";
 import { Link } from 'react-scroll';
+import { PrismicNextImage } from "@prismicio/next";
 
 const TwoColumns = styled.div`
   margin: 0;
@@ -18,7 +19,7 @@ const TwoColumns = styled.div`
   justify-content: space-between;
   position: relative;
 
-  @media ${devices.tabletPortrait} {
+  @media ${devices.tabletLandscape} {
     flex-direction: column;
   }
 `
@@ -33,7 +34,7 @@ const RightColumn = styled.div`
     height: auto;
   }
 
-  @media ${devices.tabletPortrait} {
+  @media ${devices.tabletLandscape} {
     width: 100%;
     padding-left: 0;
     top: 6em;
@@ -49,7 +50,7 @@ const StickyMenu = styled.ul`
   top: 3.5em;
   margin-top: 1.25em;
 
-  @media ${devices.tabletPortrait} {
+  @media ${devices.tabletLandscape} {
     height: auto;
     width: 100%;
     z-index: 100;
@@ -67,8 +68,11 @@ const StickyMenu = styled.ul`
 `
 
 const Divider = styled.div`
-  padding: 0 0 4em;
-  margin-bottom: 2em;
+  padding: 0 0 8em;
+
+  @media ${devices.tabletLandscape} {
+    padding: 0 0 4em;
+  }
 `
 
 export const NavLinks = styled(Link).attrs(() => ({
@@ -103,12 +107,36 @@ export const NavLinks = styled(Link).attrs(() => ({
       display: inline-block;
     }
 
-    @media ${devices.tabletPortrait} {
-      font-size: 1.25em
+    @media ${devices.tabletLandscape} {
+      font-size: 1.25em;
+    }
+  }
+`
+
+const SectionImage = styled.div`
+  position: relative;
+  right: 45%;
+  margin: 4em 0;
+
+  img {
+    width: 145%;
+  }
+
+  @media ${devices.desktop} {
+    right: 25%;
+
+    img {
+      width: 125%;
     }
   }
 
+  @media ${devices.tabletLandscape} {
+    right: 0;
 
+    img {
+      width: 100%;
+    }
+  }
 `;
 
 export default function Project({ project }) {
@@ -148,6 +176,11 @@ export default function Project({ project }) {
             {data.sections?.map((section, index) =>
               <Divider id={`section-${index}`} key={index}>
                 <PrismicRichText field={section?.text} />
+                {section?.image && 
+                  <SectionImage>
+                    <PrismicNextImage field={section?.image} />
+                  </SectionImage>
+                }
               </Divider>
             )}
           </RightColumn>
