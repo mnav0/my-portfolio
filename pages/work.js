@@ -127,7 +127,7 @@ export default function Work({ tags, projects }) {
 
 export async function getStaticProps() {
   const projects = await client.getAllByType("project", {
-    orderings: { field: "document.first_publication_date" }
+    orderings: { field: "my.project.order" }
   });
 
   const tags = [ "All" ];
