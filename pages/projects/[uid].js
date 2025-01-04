@@ -12,6 +12,7 @@ import Sprinkle from "../../components/decorations/Sprinkle";
 import { PrismicRichText } from "@prismicio/react";
 import { Link } from 'react-scroll';
 import { PrismicNextImage } from "@prismicio/next";
+import { useState } from "react";
 
 const TwoColumns = styled.div`
   margin: 0;
@@ -68,9 +69,11 @@ const StickyMenu = styled.ul`
 `
 
 const Divider = styled.div`
+  min-height: calc(100vh - 8em);
   padding: 0 0 8em;
 
   @media ${devices.tabletLandscape} {
+    min-height: calc(100vh - 4em);
     padding: 0 0 4em;
   }
 `
@@ -140,7 +143,12 @@ const SectionImage = styled.div`
 `;
 
 export default function Project({ project }) {
+  const [firstRender, setFirstRender] = useState(true);
   const { data } = project;
+
+  const handleSetActive = () => {
+    setFirstRender(false);
+  }
 
   const decorations = [
     <Circle size={15} />,
@@ -160,9 +168,11 @@ export default function Project({ project }) {
         <TwoColumns>
           <StickyMenu>
             {data.sections?.map((section, index) => {
+              const isFirstSectionFirstRender = index === 0 && firstRender;
               return (
                 <li key={index}>
-                  <NavLinks smooth spy to={`section-${index}`} offset={-100}>
+                  <NavLinks smooth spy to={`section-${index}`} offset={-100} onSetActive={handleSetActive}
+                    className={isFirstSectionFirstRender && "active"}>
                     {section.section_title[0]?.text}
                     <React.Fragment>
                       {decorations[index]}
@@ -176,7 +186,7 @@ export default function Project({ project }) {
             {data.sections?.map((section, index) =>
               <Divider id={`section-${index}`} key={index}>
                 <PrismicRichText field={section?.text} />
-                {section?.image && 
+                {section?.image?.url && 
                   <SectionImage>
                     <PrismicNextImage field={section?.image} />
                   </SectionImage>
