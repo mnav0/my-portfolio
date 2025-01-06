@@ -6,7 +6,7 @@ import { RichText } from "prismic-reactjs";
 import { colors } from "../styles/colors";
 import Swoop from "../components/decorations/Swoop";
 
-const PADDING_LARGE = "12.4em";
+const PADDING_LARGE = "14em";
 const PADDING_MEDIUM = "6em";
 
 const BackgroundContainer = ({ darkMode, ...props }) => <div {...props}></div>
