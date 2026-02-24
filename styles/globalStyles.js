@@ -31,7 +31,7 @@ const GlobalStyle = createGlobalStyle`
             font-size: 2.5em;
         }
     }
-    h3, h4, h5, p, a {
+    h3, h4, h5, p, a, li {
         font-family: ObjectSans-Regular;
         font-weight: 400;
         color: ${colors.primaryDark};
