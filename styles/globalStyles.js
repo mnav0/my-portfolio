@@ -35,11 +35,11 @@ const GlobalStyle = createGlobalStyle`
         font-family: ObjectSans-Regular;
         font-weight: 400;
         color: ${colors.primaryDark};
-        font-size: 1.25em;
+        font-size: 1.25rem;
         line-height: 1.1;
 
         @media ${devices.mobile} {
-            font-size: 1em;
+            font-size: 1rem;
         }
     }
     h3, h4, h5 {
