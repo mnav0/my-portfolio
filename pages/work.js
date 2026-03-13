@@ -11,11 +11,14 @@ import Navigation from "../components/navigation";
 const GRID_COLUMNS = [
   [12],
   [7, 5],
-  [6, 6, 12],
+  [7, 5, 12],
   [5, 7, 7, 5],
   [5, 7, 12, 7, 5],
-  [5, 7, 12, 4, 4, 4],
-  [5, 7, 7, 5, 4, 4, 4],
+  [12, 5, 7, 7, 5, 12],
+  [7, 5, 5, 7, 4, 4, 4],
+  [5, 7, 7, 5, 4, 4, 4, 1],
+  [5, 7, 7, 5, 4, 4, 4, 4, 1],
+  [5, 7, 7, 5, 12, 5, 7, 4, 4, 4],
 ]
 
 const List = styled.ul`
@@ -138,6 +141,15 @@ export async function getStaticProps() {
       if (!tags.includes(tag)) {
         tags.push(tag);
       }
+    })
+
+    // order the tags based on how often they appear in the projects but put "All" at the beginning
+    tags.sort((a, b) => {
+      if (a === "All") return -1;
+      if (b === "All") return 1;
+      const countA = projects.filter((project) => project.tags.includes(a)).length;
+      const countB = projects.filter((project) => project.tags.includes(b)).length;
+      return countB - countA;
     })
   })
 
