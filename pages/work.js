@@ -85,6 +85,10 @@ const ProjectContainer = styled(Project)`
     height: 10rem;
     grid-column-end: span 12;
   }
+
+  @media screen and ${devices.mobile} { 
+    height: 12rem;
+  }
 `
 
 const ProjectImage = ({ hovered, ...props}) => <PrismicNextImage {...props}></PrismicNextImage>
@@ -101,7 +105,6 @@ const ImageContainer = styled(ProjectImage)`
 
   @media screen and ${devices.laptop} {
     height: 12rem;
-    width: auto;
   }
 
   @media screen and ${devices.tabletLandscape} { 
