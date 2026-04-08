@@ -7,6 +7,7 @@ import { devices } from "../styles/devices";
 import { colors } from "../styles/colors";
 import Link from "next/link";
 import Navigation from "../components/navigation";
+import { PrismicNextImage } from "@prismicio/next";
 
 const GRID_COLUMNS = [
   [12],
@@ -53,11 +54,12 @@ const ProjectContainer = styled(Project)`
   cursor: pointer;
   box-shadow: ${(props) => props.hovered ? "2px 4px 8px 0px rgba(0, 0, 0, 0.25)" : "none"};
   transition: all 0.3s ease-in-out;
-  min-height: 5rem;
+  height: 10rem;
   grid-column-end: ${props => `span ${props.span || 6}`};
   display: flex;
   align-items: center;
   position: relative;
+  overflow: hidden;
 
   & p {
     margin: 0;
@@ -71,14 +73,41 @@ const ProjectContainer = styled(Project)`
     top: 0;;
   }
 
+  @media screen and ${devices.laptop} {
+    height: 12rem;
+  }
+
   @media ${devices.tabletLandscape} {
     padding: 2em;
   }
 
   @media screen and ${devices.tabletLandscape} { 
+    height: 10rem;
     grid-column-end: span 12;
   }
 `
+
+const ProjectImage = ({ hovered, ...props}) => <PrismicNextImage {...props}></PrismicNextImage>
+
+const ImageContainer = styled(ProjectImage)`
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 10rem;
+  object-fit: cover;
+  opacity: ${(props) => props.hovered ? "1" : "0"};
+  transition: all 0.3s ease-in-out;
+
+  @media screen and ${devices.laptop} {
+    height: 12rem;
+    width: auto;
+  }
+
+  @media screen and ${devices.tabletLandscape} { 
+    min-width: 100%;
+  }
+` 
 
 export default function Work({ tags, projects }) {
   const [ hover, setHover ] = useState(-1);
@@ -118,6 +147,7 @@ export default function Work({ tags, projects }) {
               span={GRID_COLUMNS[selectedProjects.length - 1][index]}
               color={data.main_color}
               hovered={hover === index}>
+                <ImageContainer field={data.hero}  hovered={hover === index} />
                 <PrismicRichText field={data.title} />
                 <Link href={link} />
             </ProjectContainer>
