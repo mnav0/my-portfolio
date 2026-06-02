@@ -20,6 +20,7 @@ const GRID_COLUMNS = [
   [5, 7, 7, 5, 4, 4, 4, 1],
   [5, 7, 7, 5, 4, 4, 4, 4, 1],
   [5, 7, 7, 5, 12, 5, 7, 4, 4, 4],
+  [12, 5, 7, 7, 5, 12, 5, 7, 4, 4, 4],
 ]
 
 const List = styled.ul`
@@ -143,6 +144,9 @@ export default function Work({ tags, projects }) {
           const { data } = project;
 
           const link = `/projects/${project.uid}`;
+          console.log(data.external_link);
+          const externalHref = data.external_link?.url || null;
+
           return (
             <ProjectContainer 
               key={index}
@@ -152,7 +156,11 @@ export default function Work({ tags, projects }) {
               hovered={hover === index}>
                 <ImageContainer field={data.hero}  hovered={hover === index} />
                 <PrismicRichText field={data.title} />
-                <Link href={link} />
+                {externalHref ? (
+                  <a href={externalHref} target="_blank" rel="noopener noreferrer" />
+                ) : (
+                  <Link href={link} legacyBehavior><a /></Link>
+                )}
             </ProjectContainer>
           )
         })}
