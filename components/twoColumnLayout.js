@@ -1,12 +1,13 @@
 import styled from "styled-components";
+import { Link } from "react-scroll";
 import { devices } from "../styles/devices";
 import TextLink from "../components/textLink";
 import HeadingWithSprinkle from "./headingWithSprinkle";
 import { RichText } from "prismic-reactjs";
 import { colors } from "../styles/colors";
-import Swoop from "../components/decorations/Swoop";
+import Arrow from "../components/decorations/Arrow";
 
-const PADDING_LARGE = "12.4em";
+const PADDING_LARGE = "8em";
 const PADDING_MEDIUM = "6em";
 
 const BackgroundContainer = ({ darkMode, ...props }) => <div {...props}></div>
@@ -70,40 +71,54 @@ const ColumnContainer = styled.div`
   }
 `
 
-const CalloutContainer = styled.div`
-  margin-top: 5em;
-  position: relative;
-
-  & svg {
-    position: absolute;
-    z-index: -1;
-    top: -3em;
-    left: -3em;
-  }
-
-  @media ${devices.mobile} {
-    & svg {
-      max-width: 24em;
-      top: -2em;
-      left: -5em;
-    }
-`
-
-
 const Footer = ({ padding, ...props}) => <div {...props}></div>
 
 const ColumnFooter = styled(Footer)`
   margin-top: ${props => props.padding || "2em"};
 `
 
+const CtaRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 10em;
+
+  @media ${devices.tabletLandscape} {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2em;
+    margin-top: 4em;
+  }
+`
+
 const LinksContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  
+  width: 25em;
+
   & a {
     display: block;
     width: 10em;
     margin: 0.5em 0 0;
+  }
+
+  @media ${devices.tabletPortrait} {
+    width: 22em;
+  }
+
+  @media ${devices.mobile} {
+    width: 18em;
+  }
+`
+
+const SubheadingLink = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  cursor: pointer;
+
+  @media ${devices.mobile} {
+    font-size: 1rem;
   }
 `
 
@@ -111,11 +126,11 @@ export default function TwoColumnLayout({
   heading, 
   headingReverse, 
   subheading,
+  scrollTo,
   description, 
   links, 
   decorations, 
   decorationsReverse, 
-  callout,
   darkMode 
 }) {
   const extLinkResolver = (doc) => {
@@ -128,48 +143,55 @@ export default function TwoColumnLayout({
     }
   }
 
+  const linksList = (
+    <LinksContainer>
+      {links?.map((l, i) => (
+        <TextLink link={l.link} label={l.link_label} newTab={l.link.target || l.link_label == "resume"} key={i} large />
+      ))}
+    </LinksContainer>
+  );
+
   return (
     <Background darkMode={darkMode}>
       <TextContainer>
         <ColumnContainer>
           <HeadingWithSprinkle heading={heading} decorations={decorations} />
           {headingReverse && <HeadingWithSprinkle heading={headingReverse} decorations={decorationsReverse} reverse /> }
-          <ColumnFooter padding={PADDING_LARGE}>
-            <h3>{subheading}</h3>
-          </ColumnFooter>
+          {subheading && !scrollTo && (
+            <ColumnFooter padding={PADDING_LARGE}>
+              <h3>{subheading}</h3>
+            </ColumnFooter>
+          )}
         </ColumnContainer>
         <ColumnContainer>
-          {description?.map((content, index) => {
-            return (
-              content?.text_block_title ?
-                <div key={index}>
-                  <h3>{content.text_block_title[0].text}</h3>
-                  {RichText.render(content.text_block_description, extLinkResolver)}
-                </div> :
-                <div key={index}>
-                  {RichText.render([content], extLinkResolver)}
-                </div>
+          {description?.map((content, index) => (
+            content?.text_block_title ? (
+              <div key={index}>
+                <h3>{content.text_block_title[0].text}</h3>
+                {RichText.render(content.text_block_description, extLinkResolver)}
+              </div>
+            ) : (
+              <div key={index}>
+                {RichText.render([content], extLinkResolver)}
+              </div>
             )
-          })}
-
-          {callout && 
-            <CalloutContainer>
-              <Swoop />
-              {RichText.render(callout, extLinkResolver)}
-            </CalloutContainer>
-          }
-  
-          <ColumnFooter padding={PADDING_MEDIUM}>
-            <LinksContainer>
-              {links?.map((l, i) => {
-                return (
-                  <TextLink link={l.link} label={l.link_label} newTab={l.link.target || l.link_label == "resume"} key={i} large />
-                )
-              })}
-            </LinksContainer>
-          </ColumnFooter>
+          ))}
+          {!scrollTo && (
+            <ColumnFooter padding={PADDING_MEDIUM}>
+              {linksList}
+            </ColumnFooter>
+          )}
         </ColumnContainer>
       </TextContainer>
+      {scrollTo && subheading && (
+        <CtaRow>
+          <SubheadingLink to={scrollTo} smooth duration={600} offset={0}>
+            {subheading}
+            <Arrow />
+          </SubheadingLink>
+          {linksList}
+        </CtaRow>
+      )}
     </Background>
   )
 }
