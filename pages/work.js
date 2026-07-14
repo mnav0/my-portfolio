@@ -155,7 +155,7 @@ export default function Work({ tags, projects }) {
               color={data.main_color}
               hovered={hover === index}>
                 <ImageContainer field={data.hero}  hovered={hover === index} />
-                <PrismicRichText field={data.title} />
+                <PrismicRichText field={data.title1} />
                 {externalHref ? (
                   <a href={externalHref} target="_blank" rel="noopener noreferrer" />
                 ) : (

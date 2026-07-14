@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { RichText } from "prismic-reactjs";
+import { PrismicRichText } from "@prismicio/react";
 import Swoop from "./decorations/Swoop";
 import { devices } from "../styles/devices";
 import { colors } from "../styles/colors";
@@ -35,6 +35,10 @@ const Floater = styled.a`
     width: 100%;
     height: 100%;
     pointer-events: none;
+  }
+
+  &:hover {
+    text-decoration: none;
   }
 
   @media ${devices.mobile} {
@@ -188,7 +192,24 @@ export default function FloatingCallout({ callout, arenaRef, href }) {
       }}
     >
       <Swoop />
-      {RichText.render(callout, extLinkResolver)}
+      <PrismicRichText
+        field={callout}
+        components={{
+          hyperlink: ({ node, children }) => {
+            const href = extLinkResolver(node.data);
+            const target = node.data.target;
+            return (
+              <a
+                href={href}
+                target={target}
+                rel={target === "_blank" ? "noopener noreferrer" : undefined}
+              >
+                {children}
+              </a>
+            );
+          },
+        }}
+      />
     </Floater>
   );
 }

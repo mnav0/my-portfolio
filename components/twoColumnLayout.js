@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { Link } from "react-scroll";
+import { PrismicRichText } from "@prismicio/react";
 import { devices } from "../styles/devices";
 import TextLink from "../components/textLink";
 import HeadingWithSprinkle from "./headingWithSprinkle";
-import { RichText } from "prismic-reactjs";
 import { colors } from "../styles/colors";
 import Arrow from "../components/decorations/Arrow";
 
@@ -141,7 +141,23 @@ export default function TwoColumnLayout({
     } else {
       return "/";
     }
-  }
+  };
+
+  const richTextComponents = {
+    hyperlink: ({ node, children }) => {
+      const href = extLinkResolver(node.data);
+      const target = node.data.target;
+      return (
+        <a
+          href={href}
+          target={target}
+          rel={target === "_blank" ? "noopener noreferrer" : undefined}
+        >
+          {children}
+        </a>
+      );
+    },
+  };
 
   const linksList = (
     <LinksContainer>
@@ -168,11 +184,17 @@ export default function TwoColumnLayout({
             content?.text_block_title ? (
               <div key={index}>
                 <h3>{content.text_block_title[0].text}</h3>
-                {RichText.render(content.text_block_description, extLinkResolver)}
+                <PrismicRichText
+                  field={content.text_block_description}
+                  components={richTextComponents}
+                />
               </div>
             ) : (
               <div key={index}>
-                {RichText.render([content], extLinkResolver)}
+                <PrismicRichText
+                  field={[content]}
+                  components={richTextComponents}
+                />
               </div>
             )
           ))}

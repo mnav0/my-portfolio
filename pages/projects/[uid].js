@@ -163,7 +163,7 @@ export default function Project({ project }) {
     <>
       <GlobalHeader />
       <Navigation darkMode />
-      <FullPageHeading heading={data.title[0].text} subheading={data.tools[0]?.text} accentText={data.date} />
+      <FullPageHeading heading={data.title1?.[0]?.text} subheading={data.tools?.[0]?.text} accentText={data.date} />
       {data.sections?.length > 0 ?
         <TwoColumns>
           <StickyMenu>
@@ -173,7 +173,7 @@ export default function Project({ project }) {
                 <li key={index}>
                   <NavLinks smooth spy to={`section-${index}`} offset={-100} onSetActive={handleSetActive}
                     className={isFirstSectionFirstRender && "active"}>
-                    {section.section_title[0]?.text}
+                    {section.section_title?.[0]?.text}
                     <React.Fragment>
                       {decorations[index]}
                     </React.Fragment>
