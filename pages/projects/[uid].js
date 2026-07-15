@@ -198,7 +198,7 @@ export default function Project({ project }) {
       :
         <>
           <p>MORE COMING SOON!</p>
-          <a href="/work">Back to Work</a>
+          <a href="/#work">Back to Work</a>
         </>
       }
     </>

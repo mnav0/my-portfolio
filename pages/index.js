@@ -9,6 +9,7 @@ import Sprinkle from "../components/decorations/Sprinkle";
 import TwoColumnLayout from "../components/twoColumnLayout";
 import FloatingCallout from "../components/floatingCallout";
 import GlobalHeader from "../components/globalHeader";
+import WorkExplorer from "../components/workExplorer";
 
 const HeroSection = styled.section`
   position: relative;
@@ -50,10 +51,19 @@ const PageContainer = styled.div`
 `;
 
 const WorkSection = styled.section`
-  min-height: 100dvh;
+  position: relative;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100dvh;
+  margin-left: calc(50% - 50vw);
+  margin-bottom: -2rem;
+
+  @media ${devices.tabletPortrait} {
+    height: auto;
+  }
 `;
 
-export default function Home({ homepage }) {
+export default function Home({ homepage, projects }) {
   const { data } = homepage;
   const arenaRef = useRef(null);
 
@@ -101,18 +111,24 @@ export default function Home({ homepage }) {
             />
           </PageContainer>
         </HeroSection>
-        <WorkSection id="work" />
+        <WorkSection id="work">
+          <WorkExplorer projects={projects} />
+        </WorkSection>
       </>
     )
   }
 }
 
 export async function getStaticProps() {
-  const homepage = await client.getSingle("homepage");
+  const [homepage, projects] = await Promise.all([
+    client.getSingle("homepage"),
+    client.getAllByType("project"),
+  ]);
 
   return {
     props: {
-      homepage
+      homepage,
+      projects,
     },
   };
 }

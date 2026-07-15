@@ -59,7 +59,7 @@ export default function Navigation({ darkMode, selectedRoute }) {
       <NavigationContainer darkMode={darkMode}>
         <HomeLink href="/">Maggie Navracruz</HomeLink>
         <Pages>
-          <PageLink href="/work" selected={selectedRoute === "work"}>Work</PageLink>
+          <PageLink href="/#work" selected={selectedRoute === "work"}>Work</PageLink>
           <PageLink href="/about" selected={selectedRoute === "about"}>About</PageLink>
         </Pages>
       </NavigationContainer>

@@ -31,7 +31,7 @@ const GlobalStyle = createGlobalStyle`
             font-size: 2.5em;
         }
     }
-    h3, h4, h5, p, a, li {
+    h3, h4, h5, p, a, li, button, .link {
         font-family: ObjectSans-Regular;
         font-weight: 400;
         color: ${colors.primaryDark};
@@ -49,19 +49,29 @@ const GlobalStyle = createGlobalStyle`
         font-family: ObjectSans-Bold;
         font-weight: 600;
     }
-    a {
-        font-family: ObjectSans-Regular;
+    .heavy {
+        font-family: ObjectSans-Heavy;
+        font-weight: 800;
+    }
+    a, .link {
         color: ${colors.action};
         text-transform: uppercase;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+    a.plain, .plain {
+        color: ${colors.primaryDark};
+        text-transform: none;
+    }
+    a.plain:hover, .plain:hover {
         text-decoration: none;
     }
     p a {
         color: ${colors.action};
         text-transform: none;
-        font-size: inherit
-    }
-    a:hover {
-        text-decoration: underline;
+        font-size: inherit;
     }
 `
 

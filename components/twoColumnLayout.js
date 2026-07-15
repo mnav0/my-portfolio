@@ -14,7 +14,7 @@ const BackgroundContainer = ({ darkMode, ...props }) => <div {...props}></div>
 
 const Background = styled(BackgroundContainer)`
   position: relative;
-  margin: 6em 0 4em;
+  margin: 0;
 
   ${({ darkMode }) => darkMode && `
     background-color: ${colors.primaryDark};
