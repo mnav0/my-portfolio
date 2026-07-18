@@ -37,7 +37,7 @@ const GlobalStyle = createGlobalStyle`
         font-weight: 400;
         color: ${colors.primaryDark};
         font-size: 1.25rem;
-        line-height: 1.1;
+        line-height: 1.2;
 
         @media ${devices.mobile} {
             font-size: 1rem;

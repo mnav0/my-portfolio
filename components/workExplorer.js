@@ -10,8 +10,6 @@ import Button from "./button";
 
 const DOT = 12;
 const END_DOT = 2;
-const ARC_ANGLE = 38;
-const ARC_ANGLE_MOBILE = 22;
 
 const Frame = styled.div`
   display: flex;
@@ -69,7 +67,7 @@ const ColumnInner = styled.div`
   }
 `
 
-const Arcs = styled.svg`
+const Connectors = styled.svg`
   position: absolute;
   inset: 0;
   width: 100%;
@@ -240,7 +238,7 @@ const Actions = styled.div`
 export default function WorkExplorer({ projects = [] }) {
   const [selected, setSelected] = useState(0);
   const [hovered, setHovered] = useState(null);
-  const [arcs, setArcs] = useState([]);
+  const [lines, setLines] = useState([]);
   const [listMode, setListMode] = useState(false);
 
   const columnRef = useRef(null);
@@ -281,51 +279,42 @@ export default function WorkExplorer({ projects = [] }) {
   const activeProject = activeIndex != null ? flat[activeIndex] : null;
 
   useLayoutEffect(() => {
-    const updateArcs = () => {
+    const updateLines = () => {
       const column = columnRef.current;
       const activeEl = activeRef.current;
       if (!column || !activeEl || !activeProject) {
-        setArcs([]);
+        setLines([]);
         return;
       }
 
       const gap = listMode ? DOT / 2 : DOT;
       const columnBox = column.getBoundingClientRect();
       const activeBox = activeEl.getBoundingClientRect();
-      const x = activeBox.left - columnBox.left - gap;
+      const x = activeBox.left - columnBox.left - gap - DOT / 2;
       const y = activeBox.top - columnBox.top + activeBox.height / 2;
-      const angle = listMode ? ARC_ANGLE_MOBILE : ARC_ANGLE;
       const next = [];
 
       (activeProject.tags || []).slice(1).forEach((tag) => {
         const tagEl = tagRefs.current[tag];
         if (!tagEl) return;
         const tagBox = tagEl.getBoundingClientRect();
-        const endX = x - END_DOT;
-        const endY = tagBox.top - columnBox.top + tagBox.height / 2 - END_DOT;
-        const midX = (x - DOT / 2 + endX) / 2;
-        const midY = (y + endY) / 2;
-        const depth = (Math.abs(endY - y) / 2) * Math.tan(angle * Math.PI / 180);
-        next.push({
-          d: `M ${x - DOT / 2} ${y} Q ${midX - depth} ${midY} ${endX} ${endY}`,
-          endX,
-          endY,
-        });
+        const endY = tagBox.top - columnBox.top + tagBox.height / 2;
+        next.push({ x, y, endY });
       });
 
-      setArcs(next);
+      setLines(next);
     };
 
-    updateArcs();
+    updateLines();
     const column = columnRef.current;
     if (!column) return;
 
-    const observer = new ResizeObserver(updateArcs);
+    const observer = new ResizeObserver(updateLines);
     observer.observe(column);
-    window.addEventListener("resize", updateArcs);
+    window.addEventListener("resize", updateLines);
     return () => {
       observer.disconnect();
-      window.removeEventListener("resize", updateArcs);
+      window.removeEventListener("resize", updateLines);
     };
   }, [activeProject, activeIndex, listMode]);
 
@@ -337,14 +326,14 @@ export default function WorkExplorer({ projects = [] }) {
     <Frame>
       <Column>
         <ColumnInner ref={columnRef}>
-          <Arcs>
-            {arcs.map((arc, i) => (
-              <g key={i}>
-                <path d={arc.d} fill="none" stroke={colors.action} strokeWidth="1" />
-                <circle cx={arc.endX} cy={arc.endY} r={END_DOT} stroke={colors.action} fill={colors.primaryLight} />
-              </g>
+          <Connectors>
+            {lines.map((line, i) => (
+              <line key={i} x1={line.x} y1={line.y} x2={line.x} y2={line.endY} stroke={colors.action} strokeWidth="1" />
             ))}
-          </Arcs>
+            {lines.map((line, i) => (
+              <circle key={i} cx={line.x} cy={line.endY} r={END_DOT} stroke={colors.action} fill={colors.primaryLight} />
+            ))}
+          </Connectors>
 
           {tags.map((tag) => (
             <Group key={tag}>
