@@ -5,6 +5,7 @@ import { PrismicRichText } from "@prismicio/react";
 import { PrismicNextImage } from "@prismicio/next";
 import { colors } from "../styles/colors";
 import { devices } from "../styles/devices";
+import { MARGIN_X, MARGIN_Y_SM } from "../styles/layout";
 import Button from "./button";
 
 const DOT = 12;
@@ -22,13 +23,13 @@ const Frame = styled.div`
   @media ${devices.tabletPortrait} {
     flex-direction: column;
     height: auto;
-    padding: 0 5.5%;
+    padding: 0 ${MARGIN_X}%;
   }
 `
 
 const Column = styled.aside`
-  flex: 0 0 calc(5.5vw + 25em);
-  width: calc(5.5vw + 25em);
+  flex: 0 0 calc(${MARGIN_X}vw + 25em);
+  width: calc(${MARGIN_X}vw + 25em);
   height: 100%;
   box-sizing: border-box;
   overflow-x: hidden;
@@ -45,8 +46,8 @@ const Column = styled.aside`
   }
 
   @media ${devices.tabletLandscape} {
-    flex-basis: calc(5.5vw + 22em);
-    width: calc(5.5vw + 22em);
+    flex-basis: calc(${MARGIN_X}vw + 22em);
+    width: calc(${MARGIN_X}vw + 22em);
   }
 
   @media ${devices.tabletPortrait} {
@@ -61,7 +62,7 @@ const ColumnInner = styled.div`
   position: relative;
   box-sizing: border-box;
   min-height: 100%;
-  padding: 1.5em 0 1.5em 5.5vw;
+  padding: ${MARGIN_Y_SM}rem 0 ${MARGIN_Y_SM}rem ${MARGIN_X}vw;
 
   @media ${devices.tabletPortrait} {
     padding: 1.25em 0 4em;

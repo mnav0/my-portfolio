@@ -1,6 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
 import { colors } from "../styles/colors";
+import { MARGIN_X } from "../styles/layout";
 
 const HeadingWrapper = styled.div`
   display: flex;
@@ -9,8 +10,8 @@ const HeadingWrapper = styled.div`
   background-color: ${colors.primaryDark};
   width: 100vw;
   top: -1em;
-  left: -5.5vw;
-  padding: 4em 5.5vw 0.25em 5.5vw;
+  left: -${MARGIN_X}vw;
+  padding: 4em ${MARGIN_X}vw 0.25em ${MARGIN_X}vw;
 
   p {
     color: ${colors.primaryLight};
@@ -39,8 +40,8 @@ const SubContent = styled.p`
   position: relative;
   width: 100vw;
   top: -0.75em;
-  left: -5.5vw;
-  padding: 1em 5.5vw;
+  left: -${MARGIN_X}vw;
+  padding: 1em ${MARGIN_X}vw;
 `
 
 

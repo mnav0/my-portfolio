@@ -16,6 +16,7 @@ const StyledButton = styled(Base)`
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.4em;
   margin: 0;
   padding: 0.75em 1.25em;
   border-radius: 0;

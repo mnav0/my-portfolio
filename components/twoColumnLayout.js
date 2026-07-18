@@ -5,6 +5,7 @@ import { devices } from "../styles/devices";
 import TextLink from "../components/textLink";
 import HeadingWithSprinkle from "./headingWithSprinkle";
 import { colors } from "../styles/colors";
+import { MARGIN_X } from "../styles/layout";
 import Arrow from "../components/decorations/Arrow";
 
 const PADDING_LARGE = "8em";
@@ -19,8 +20,8 @@ const Background = styled(BackgroundContainer)`
   ${({ darkMode }) => darkMode && `
     background-color: ${colors.primaryDark};
     width: 100vw;
-    left: -5.5vw;
-    padding: 6rem 5.5vw 0 5.5vw;
+    left: -${MARGIN_X}vw;
+    padding: 6rem ${MARGIN_X}vw 0 ${MARGIN_X}vw;
 
     h1, h2, p {
       color: ${colors.primaryLight};

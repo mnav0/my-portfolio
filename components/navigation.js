@@ -2,6 +2,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import { devices } from "../styles/devices";
 import { colors } from "../styles/colors";
+import { MARGIN_X } from "../styles/layout";
 
 const DarkMode = ({ darkMode, ...props }) => <div {...props}></div>
 
@@ -21,7 +22,7 @@ const NavigationContainer = styled(NavigationWrapper)`
     position: absolute;
     top: 0;
     left: 0;
-    padding: 4em 5.5vw 2em 5.5vw;
+    padding: 4em ${MARGIN_X}vw 2em ${MARGIN_X}vw;
 
     h3, h4, h5, a {
       color: ${colors.primaryLight};

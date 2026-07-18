@@ -3,6 +3,7 @@ import { client } from "../prismic";
 import styled from "styled-components";
 import { colors } from "../styles/colors";
 import { devices } from "../styles/devices";
+import { MARGIN_X } from "../styles/layout";
 import Square from "../components/decorations/Square";
 import Circle from "../components/decorations/Circle";
 import Sprinkle from "../components/decorations/Sprinkle";
@@ -47,7 +48,7 @@ const Arena = styled.div`
 
 const PageContainer = styled.div`
   flex: 0 0 auto;
-  padding: 0 5.5% 0.5rem;
+  padding: 0 ${MARGIN_X}%;
 `;
 
 const WorkSection = styled.section`
