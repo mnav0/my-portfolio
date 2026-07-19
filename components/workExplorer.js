@@ -7,6 +7,7 @@ import { colors } from "../styles/colors";
 import { devices } from "../styles/devices";
 import { MARGIN_X, MARGIN_Y_LG, MARGIN_Y_SM, COLUMN_WIDTH_LG, COLUMN_WIDTH_MD } from "../styles/layout";
 import Button from "../components/button";
+import { orderProjects } from "../lib/projectOrder";
 
 const DOT = 12;
 const END_DOT = 2;
@@ -289,25 +290,7 @@ export default function WorkExplorer({ projects = [] }) {
   const activeRef = useRef(null);
   const tagRefs = useRef({});
 
-  const byTag = {};
-  projects.forEach((project) => {
-    const tag = project.tags && project.tags[0];
-    if (!tag) return;
-    if (!byTag[tag]) byTag[tag] = [];
-    byTag[tag].push(project);
-  });
-  Object.keys(byTag).forEach((tag) => {
-    byTag[tag].sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
-  });
-  const tags = Object.keys(byTag).sort((a, b) => {
-    if (a.toLowerCase() === "featured") return -1;
-    if (b.toLowerCase() === "featured") return 1;
-    return a.localeCompare(b);
-  });
-  const flat = [];
-  tags.forEach((tag) => {
-    byTag[tag].forEach((project) => flat.push(project));
-  });
+  const { byTag, tags, flat } = orderProjects(projects);
 
   useEffect(() => {
     const media = window.matchMedia(devices.tabletPortrait);

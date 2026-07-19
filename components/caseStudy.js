@@ -4,11 +4,15 @@ import { PrismicNextImage } from "@prismicio/next";
 import { colors } from "../styles/colors";
 import { devices } from "../styles/devices";
 import { MARGIN_X, MARGIN_Y_LG, MARGIN_Y_SM } from "../styles/layout";
+import Button from "../components/button";
+import Arrow from "../components/decorations/Arrow";
 
-const PanelContainer = ({ background, text, ...props }) => <section {...props}></section>
+const PanelContainer = ({ background, text, $themed, ...props }) => <section {...props}></section>
 
 const Panel = styled(PanelContainer)`
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   width: 100vw;
   margin-left: calc(50% - 50vw);
   min-height: 100dvh;
@@ -17,9 +21,11 @@ const Panel = styled(PanelContainer)`
   background-color: ${props => props.background};
   color: ${props => props.text};
 
-  h1, h2, h3, h4, h5, h6, p, a, li {
-    color: inherit;
-  }
+  ${(props) => props.$themed && `
+    h1, h2, h3, h4, h5, h6, p, a, li {
+      color: inherit;
+    }
+  `}
 
   img {
     display: block;
@@ -30,10 +36,6 @@ const Panel = styled(PanelContainer)`
 
 const Section = styled.div`
   margin: 0 0 ${MARGIN_Y_LG};
-
-  &:last-child {
-    margin-bottom: 0;
-  }
 `
 
 const ImageRow = styled.div`
@@ -73,37 +75,116 @@ const SectionTitle = styled.h3`
   margin: 0 0 0.75em;
 `
 
-export default function CaseStudy({ data }) {
+const Hero = styled.div`
+  position: relative;
+  flex: 1;
+  min-height: 20em;
+  margin-bottom: ${MARGIN_Y_LG};
+  overflow: hidden;
+`
+
+const Footer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2em;
+  margin-top: auto;
+
+  @media ${devices.mobile} {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1em;
+  }
+`
+
+const NavButton = styled(Button)`
+  ${(props) => props.$themed && `
+    && {
+      border-color: currentColor;
+      color: inherit;
+    }
+
+    svg path {
+      stroke: currentColor;
+    }
+  `}
+`
+
+const RightArrow = styled.span`
+  display: inline-flex;
+  transform: rotate(-90deg);
+`
+
+function CaseStudyFooter({ nextProject, themed }) {
+  return (
+    <Footer>
+      <NavButton href="/#work" $themed={themed}>Back to Work</NavButton>
+      {nextProject?.uid && (
+        <NavButton href={`/projects/${nextProject.uid}`} $themed={themed}>
+          Next Project
+          <RightArrow>
+            <Arrow />
+          </RightArrow>
+        </NavButton>
+      )}
+    </Footer>
+  )
+}
+
+export default function CaseStudy({ data, nextProject, preview }) {
+  const background = preview
+    ? colors.primaryLight
+    : (data.main_color || colors.primaryLight);
+  const text = preview
+    ? colors.primaryDark
+    : (data.text_color || colors.primaryDark);
+
   return (
     <Panel
       id="case-study"
-      background={data.main_color || colors.primaryLight}
-      text={data.text_color || colors.primaryDark}
+      background={background}
+      text={text}
+      $themed={!preview}
     >
-      {data.sections.map((section, index) => (
-        <Section key={index}>
-          {(section.image?.url || section.image_secondary?.url) && (
-            <ImageRow>
-              {section.image?.url && (
-                <Primary>
-                  <PrismicNextImage field={section.image} />
-                </Primary>
-              )}
-              {section.image_secondary?.url && (
-                <Secondary>
-                  <PrismicNextImage field={section.image_secondary} />
-                </Secondary>
-              )}
-            </ImageRow>
-          )}
-          <Text>
-            {section.section_title?.[0]?.text && (
-              <SectionTitle>{section.section_title[0].text}</SectionTitle>
+      {preview ? (
+        data.hero?.url && (
+          <Hero>
+            <PrismicNextImage
+              field={data.hero}
+              fill
+              sizes="100vw"
+              fallbackAlt=""
+              style={{ objectFit: "cover" }}
+            />
+          </Hero>
+        )
+      ) : (
+        data.sections.map((section, index) => (
+          <Section key={index}>
+            {(section.image?.url || section.image_secondary?.url) && (
+              <ImageRow>
+                {section.image?.url && (
+                  <Primary>
+                    <PrismicNextImage field={section.image} />
+                  </Primary>
+                )}
+                {section.image_secondary?.url && (
+                  <Secondary>
+                    <PrismicNextImage field={section.image_secondary} />
+                  </Secondary>
+                )}
+              </ImageRow>
             )}
-            <PrismicRichText field={section.text} />
-          </Text>
-        </Section>
-      ))}
+            <Text>
+              {section.section_title?.[0]?.text && (
+                <SectionTitle>{section.section_title[0].text}</SectionTitle>
+              )}
+              <PrismicRichText field={section.text} />
+            </Text>
+          </Section>
+        ))
+      )}
+      <CaseStudyFooter nextProject={nextProject} themed={!preview} />
     </Panel>
   )
 }

@@ -3,6 +3,7 @@ import { createGlobalStyle } from "styled-components";
 import GlobalHeader from "../../components/globalHeader";
 import ProjectIntro from "../../components/projectIntro";
 import CaseStudy from "../../components/caseStudy";
+import { getNextProject } from "../../lib/projectOrder";
 
 const SnapScroll = createGlobalStyle`
   html {
@@ -10,16 +11,23 @@ const SnapScroll = createGlobalStyle`
   }
 `
 
-export default function Project({ project }) {
+const ProjectPageStyles = createGlobalStyle`
+  body {
+    padding-bottom: 0 !important;
+  }
+`
+
+export default function Project({ project, nextProject }) {
   const { data } = project;
   const hasCaseStudy = data.case_study && data.sections?.length > 0;
 
   return (
     <>
       <GlobalHeader />
-      {hasCaseStudy && <SnapScroll />}
+      <ProjectPageStyles />
+      <SnapScroll />
       <ProjectIntro data={data} tags={project.tags} />
-      {hasCaseStudy && <CaseStudy data={data} />}
+      <CaseStudy data={data} nextProject={nextProject} preview={!hasCaseStudy} />
     </>
   )
 }
@@ -36,9 +44,13 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  const project = await client.getByUID("project", context.params.uid);
+  const [project, projects] = await Promise.all([
+    client.getByUID("project", context.params.uid),
+    client.getAllByType("project"),
+  ]);
+  const nextProject = getNextProject(projects, context.params.uid);
 
   return {
-    props: { project },
+    props: { project, nextProject },
   }
 }

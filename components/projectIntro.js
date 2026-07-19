@@ -79,7 +79,7 @@ const Details = styled.div`
 `
 
 const Meta = styled.dl`
-  margin: ${MARGIN_Y_LG} 0 0;
+  margin: ${MARGIN_Y_SM} 0 0;
   border-top: 1px solid ${colors.callout};
 `
 
@@ -96,6 +96,7 @@ const MetaRow = styled.div`
   dd {
     margin: 0;
     text-align: right;
+    max-width: 45%;
   }
 `
 
@@ -126,6 +127,8 @@ export default function ProjectIntro({ data, tags }) {
   const scrollToCaseStudy = () => {
     scroller.scrollTo("case-study", { smooth: true, duration: SCROLL_DURATION });
   };
+  const hasCaseStudy = data.case_study && data.sections?.length > 0;
+  const visibleTags = tags?.filter((t) => t.toLowerCase() !== "featured");
 
   return (
     <Panel>
@@ -133,7 +136,7 @@ export default function ProjectIntro({ data, tags }) {
         <Navigation />
       </Header>
       <Card>
-        <TagsLabel className="link">{tags?.join(" - ")}</TagsLabel>
+        <TagsLabel className="link">{visibleTags?.join(" - ")}</TagsLabel>
         <Body>
           <Title>
             <h3>{data.title1?.[0]?.text}</h3>
@@ -163,7 +166,7 @@ export default function ProjectIntro({ data, tags }) {
           </Details>
         </Body>
         <Footer>
-          {data.case_study && data.sections?.length > 0 ? (
+          {hasCaseStudy ? (
             <Button onClick={scrollToCaseStudy}>
               Case Study
               <Arrow />
