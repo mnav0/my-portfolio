@@ -110,7 +110,8 @@ export default function TwoColumnLayout({
   description, 
   links, 
   decorations, 
-  decorationsReverse
+  decorationsReverse,
+  rightColumnRef
 }) {
   const linksList = (
     <LinksContainer>
@@ -132,7 +133,7 @@ export default function TwoColumnLayout({
             </ColumnFooter>
           )}
         </ColumnContainer>
-        <ColumnContainer>
+        <ColumnContainer ref={rightColumnRef}>
           {description?.map((content, index) => (
             content?.text_block_title ? (
               <div key={index}>

@@ -18,6 +18,8 @@ const SnapScroll = createGlobalStyle`
   }
 `;
 
+const TOP_BAR_HEIGHT = "1em";
+
 const HeroSection = styled.section`
   position: relative;
   display: flex;
@@ -27,7 +29,7 @@ const HeroSection = styled.section`
   width: 100vw;
   margin-top: -${MARGIN_Y_LG};
   margin-left: calc(50% - 50vw);
-  padding: ${MARGIN_Y_SM} 0 ${MARGIN_Y_SM};
+  padding: ${TOP_BAR_HEIGHT} 0 ${MARGIN_Y_SM};
   scroll-snap-align: start;
 `;
 
@@ -37,7 +39,7 @@ const TopBar = styled.div`
   left: 0;
   z-index: 1;
   width: 100%;
-  height: 1em;
+  height: ${TOP_BAR_HEIGHT};
   background-color: ${colors.action};
 `
 
@@ -75,6 +77,7 @@ const WorkSection = styled.section`
 export default function Home({ homepage, projects }) {
   const { data } = homepage;
   const arenaRef = useRef(null);
+  const rightColumnRef = useRef(null);
 
   if (data) {
     const titleSplit = data.title[0].text.split(" ");
@@ -104,6 +107,7 @@ export default function Home({ homepage, projects }) {
               <FloatingCallout
                 callout={data.callout}
                 arenaRef={arenaRef}
+                anchorRef={rightColumnRef}
                 href={contactHref}
               />
             )}
@@ -118,6 +122,7 @@ export default function Home({ homepage, projects }) {
               links={data.links}
               decorations={decorations[0]}
               decorationsReverse={decorations[1]}
+              rightColumnRef={rightColumnRef}
             />
           </PageContainer>
         </HeroSection>

@@ -7,9 +7,8 @@ import { colors } from "../styles/colors";
 import { richTextComponents } from "../components/richText";
 
 const SPEED = 0.55;
-const ENTER_SPEED = 1.05;
 const Y_RATIO = 0.7;
-const SLOWDOWN = 0.06;
+const START_DELAY = 1500;
 
 const Floater = styled.a`
   position: absolute;
@@ -52,15 +51,13 @@ const Floater = styled.a`
   }
 `
 
-export default function FloatingCallout({ callout, arenaRef, href }) {
+export default function FloatingCallout({ callout, arenaRef, anchorRef, href }) {
   const itemRef = useRef(null);
   const motionRef = useRef({
     x: -9999,
     y: 20,
     dirX: -1,
     dirY: 1,
-    speed: ENTER_SPEED,
-    entered: false,
   });
   const pausedRef = useRef(false);
   const [pos, setPos] = useState({ x: -9999, y: 20 });
@@ -79,20 +76,27 @@ export default function FloatingCallout({ callout, arenaRef, href }) {
 
     const arena = arenaRef?.current;
     const item = itemRef.current;
-    if (!arena || !item) return;
+    const anchor = anchorRef?.current;
+    if (!arena || !item || !anchor) return;
 
     let frameId;
-    let lastTime = performance.now();
+    let delayId;
+    let lastTime;
+    let started = false;
 
-    const placeOffscreenRight = () => {
+    const placeInitial = () => {
+      const arenaBox = arena.getBoundingClientRect();
+      const itemBox = item.getBoundingClientRect();
+      const textBox = item.querySelector("p")?.getBoundingClientRect();
+      const anchorBox = anchor.getBoundingClientRect();
+      const textOffset = textBox ? textBox.left - itemBox.left : 0;
+      const maxX = Math.max(0, arena.clientWidth - item.offsetWidth);
       const maxY = Math.max(0, arena.clientHeight - item.offsetHeight);
       motionRef.current = {
-        x: arena.clientWidth + 16,
-        y: Math.min(maxY, Math.max(0, maxY * 0.25)),
+        x: Math.min(maxX, Math.max(0, anchorBox.left - arenaBox.left - textOffset)),
+        y: Math.max(0, maxY - 56),
         dirX: -1,
         dirY: 1,
-        speed: ENTER_SPEED,
-        entered: false,
       };
       setPos({ x: motionRef.current.x, y: motionRef.current.y });
     };
@@ -100,14 +104,9 @@ export default function FloatingCallout({ callout, arenaRef, href }) {
     const clampAndBounce = () => {
       const maxX = Math.max(0, arena.clientWidth - item.offsetWidth);
       const maxY = Math.max(0, arena.clientHeight - item.offsetHeight);
-      let { x, y, dirX, dirY, speed, entered } = motionRef.current;
+      let { x, y, dirX, dirY } = motionRef.current;
 
-      if (!entered) {
-        if (x <= maxX) {
-          entered = true;
-          x = Math.min(maxX, x);
-        }
-      } else if (x >= maxX) {
+      if (x >= maxX) {
         x = maxX;
         dirX = -1;
       }
@@ -125,7 +124,7 @@ export default function FloatingCallout({ callout, arenaRef, href }) {
         dirY = -1;
       }
 
-      motionRef.current = { x, y, dirX, dirY, speed, entered };
+      motionRef.current = { x, y, dirX, dirY };
     };
 
     const tick = (now) => {
@@ -133,16 +132,11 @@ export default function FloatingCallout({ callout, arenaRef, href }) {
       lastTime = now;
 
       if (!pausedRef.current) {
-        let { x, y, dirX, dirY, speed, entered } = motionRef.current;
+        let { x, y, dirX, dirY } = motionRef.current;
 
-        if (entered && speed > SPEED) {
-          speed += (SPEED - speed) * (1 - Math.exp(-SLOWDOWN * dt));
-          if (speed - SPEED < 0.01) speed = SPEED;
-        }
-
-        x += dirX * speed * dt;
-        y += dirY * speed * Y_RATIO * dt;
-        motionRef.current = { x, y, dirX, dirY, speed, entered };
+        x += dirX * SPEED * dt;
+        y += dirY * SPEED * Y_RATIO * dt;
+        motionRef.current = { x, y, dirX, dirY };
         clampAndBounce();
         setPos({ x: motionRef.current.x, y: motionRef.current.y });
       }
@@ -151,19 +145,30 @@ export default function FloatingCallout({ callout, arenaRef, href }) {
     };
 
     const observer = new ResizeObserver(() => {
-      if (motionRef.current.entered) clampAndBounce();
+      if (started) {
+        clampAndBounce();
+        setPos({ x: motionRef.current.x, y: motionRef.current.y });
+      } else {
+        placeInitial();
+      }
     });
     observer.observe(arena);
     observer.observe(item);
+    observer.observe(anchor);
 
-    placeOffscreenRight();
-    frameId = requestAnimationFrame(tick);
+    placeInitial();
+    delayId = window.setTimeout(() => {
+      started = true;
+      lastTime = performance.now();
+      frameId = requestAnimationFrame(tick);
+    }, START_DELAY);
 
     return () => {
+      clearTimeout(delayId);
       cancelAnimationFrame(frameId);
       observer.disconnect();
     };
-  }, [callout, arenaRef, reducedMotion]);
+  }, [callout, arenaRef, anchorRef, reducedMotion]);
 
   if (!callout) return null;
 
