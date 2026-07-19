@@ -5,8 +5,8 @@ import { PrismicRichText } from "@prismicio/react";
 import { PrismicNextImage } from "@prismicio/next";
 import { colors } from "../styles/colors";
 import { devices } from "../styles/devices";
-import { MARGIN_X, MARGIN_Y_LG, MARGIN_Y_SM } from "../styles/layout";
-import Button from "./button";
+import { MARGIN_X, MARGIN_Y_LG, MARGIN_Y_SM, COLUMN_WIDTH_LG, COLUMN_WIDTH_MD } from "../styles/layout";
+import Button from "../components/button";
 
 const DOT = 12;
 const END_DOT = 2;
@@ -26,8 +26,8 @@ const Frame = styled.div`
 `
 
 const Column = styled.aside`
-  flex: 0 0 calc(${MARGIN_X}vw + 25em);
-  width: calc(${MARGIN_X}vw + 25em);
+  flex: 0 0 calc(${MARGIN_X}vw + ${COLUMN_WIDTH_LG});
+  width: calc(${MARGIN_X}vw + ${COLUMN_WIDTH_LG});
   height: 100%;
   box-sizing: border-box;
   overflow-x: hidden;
@@ -44,8 +44,8 @@ const Column = styled.aside`
   }
 
   @media ${devices.tabletLandscape} {
-    flex-basis: calc(${MARGIN_X}vw + 22em);
-    width: calc(${MARGIN_X}vw + 22em);
+    flex-basis: calc(${MARGIN_X}vw + ${COLUMN_WIDTH_MD});
+    width: calc(${MARGIN_X}vw + ${COLUMN_WIDTH_MD});
   }
 
   @media ${devices.tabletPortrait} {

@@ -3,10 +3,10 @@ import { scroller } from "react-scroll";
 import { PrismicRichText } from "@prismicio/react";
 import { colors } from "../styles/colors";
 import { devices } from "../styles/devices";
-import { MARGIN_X, MARGIN_Y_LG, MARGIN_Y_SM } from "../styles/layout";
-import Navigation from "./navigation";
-import Button from "./button";
-import Arrow from "./decorations/Arrow";
+import { MARGIN_X, MARGIN_Y_LG, MARGIN_Y_SM, SCROLL_DURATION } from "../styles/layout";
+import Navigation from "../components/navigation";
+import Button from "../components/button";
+import Arrow from "../components/decorations/Arrow";
 
 const Panel = styled.section`
   box-sizing: border-box;
@@ -124,7 +124,7 @@ const ComingSoon = styled.h5`
 
 export default function ProjectIntro({ data, tags }) {
   const scrollToCaseStudy = () => {
-    scroller.scrollTo("case-study", { smooth: true, duration: 600 });
+    scroller.scrollTo("case-study", { smooth: true, duration: SCROLL_DURATION });
   };
 
   return (

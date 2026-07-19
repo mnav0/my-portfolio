@@ -1,4 +1,3 @@
-import React from 'react';
 import { colors } from "../../styles/colors";
 
 const Arrow = ({ stroke }) => {

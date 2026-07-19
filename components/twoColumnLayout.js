@@ -3,10 +3,10 @@ import { Link } from "react-scroll";
 import { PrismicRichText } from "@prismicio/react";
 import { devices } from "../styles/devices";
 import TextLink from "../components/textLink";
-import HeadingWithSprinkle from "./headingWithSprinkle";
-import { MARGIN_Y_LG, MARGIN_Y_SM } from "../styles/layout";
+import HeadingWithSprinkle from "../components/headingWithSprinkle";
+import { MARGIN_Y_LG, MARGIN_Y_SM, COLUMN_WIDTH_LG, COLUMN_WIDTH_MD, COLUMN_WIDTH_SM, SCROLL_DURATION } from "../styles/layout";
 import Arrow from "../components/decorations/Arrow";
-import { extLinkResolver } from "../prismic";
+import { richTextComponents } from "../components/richText";
 
 const Background = styled.div`
   position: relative;
@@ -24,7 +24,7 @@ const TextContainer = styled.div`
 
 const ColumnContainer = styled.div`
   position: relative;
-  width: 25em;
+  width: ${COLUMN_WIDTH_LG};
 
   h3, h4, h5, h6 {
     margin: 0 0 0.25em;
@@ -44,11 +44,11 @@ const ColumnContainer = styled.div`
   }
 
   @media ${devices.tabletPortrait} {
-    width: 22em;
+    width: ${COLUMN_WIDTH_MD};
   }
 
   @media ${devices.mobile} {
-    width: 18em;
+    width: ${COLUMN_WIDTH_SM};
   }
 `
 
@@ -74,7 +74,7 @@ const CtaRow = styled.div`
 const LinksContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 25em;
+  width: ${COLUMN_WIDTH_LG};
 
   & a {
     display: block;
@@ -83,11 +83,11 @@ const LinksContainer = styled.div`
   }
 
   @media ${devices.tabletPortrait} {
-    width: 22em;
+    width: ${COLUMN_WIDTH_MD};
   }
 
   @media ${devices.mobile} {
-    width: 18em;
+    width: ${COLUMN_WIDTH_SM};
   }
 `
 
@@ -112,26 +112,10 @@ export default function TwoColumnLayout({
   decorations, 
   decorationsReverse
 }) {
-  const richTextComponents = {
-    hyperlink: ({ node, children }) => {
-      const href = extLinkResolver(node.data);
-      const target = node.data.target;
-      return (
-        <a
-          href={href}
-          target={target}
-          rel={target === "_blank" ? "noopener noreferrer" : undefined}
-        >
-          {children}
-        </a>
-      );
-    },
-  };
-
   const linksList = (
     <LinksContainer>
       {links?.map((l, i) => (
-        <TextLink link={l.link} label={l.link_label} newTab={l.link.target || l.link_label == "resume"} key={i} large />
+        <TextLink link={l.link} label={l.link_label} newTab={l.link.target || l.link_label == "resume"} key={i} />
       ))}
     </LinksContainer>
   );
@@ -176,7 +160,7 @@ export default function TwoColumnLayout({
       </TextContainer>
       {scrollTo && subheading && (
         <CtaRow>
-          <SubheadingLink to={scrollTo} smooth duration={600} offset={0}>
+          <SubheadingLink to={scrollTo} smooth duration={SCROLL_DURATION} offset={0}>
             {subheading}
             <Arrow />
           </SubheadingLink>

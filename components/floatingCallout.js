@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { PrismicRichText } from "@prismicio/react";
-import Swoop from "./decorations/Swoop";
+import Swoop from "../components/decorations/Swoop";
 import { devices } from "../styles/devices";
 import { colors } from "../styles/colors";
-import { extLinkResolver } from "../prismic";
+import { richTextComponents } from "../components/richText";
 
 const SPEED = 0.55;
 const ENTER_SPEED = 1.05;
@@ -50,7 +50,7 @@ const Floater = styled.a`
       font-size: 0.95rem;
     }
   }
-`;
+`
 
 export default function FloatingCallout({ callout, arenaRef, href }) {
   const itemRef = useRef(null);
@@ -184,24 +184,7 @@ export default function FloatingCallout({ callout, arenaRef, href }) {
       }}
     >
       <Swoop />
-      <PrismicRichText
-        field={callout}
-        components={{
-          hyperlink: ({ node, children }) => {
-            const href = extLinkResolver(node.data);
-            const target = node.data.target;
-            return (
-              <a
-                href={href}
-                target={target}
-                rel={target === "_blank" ? "noopener noreferrer" : undefined}
-              >
-                {children}
-              </a>
-            );
-          },
-        }}
-      />
+      <PrismicRichText field={callout} components={richTextComponents} />
     </Floater>
   );
 }

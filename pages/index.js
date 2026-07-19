@@ -22,7 +22,7 @@ const HeroSection = styled.section`
   margin-top: -${MARGIN_Y_LG};
   margin-left: calc(50% - 50vw);
   padding: ${MARGIN_Y_SM} 0 ${MARGIN_Y_SM};
-`;
+`
 
 const TopBar = styled.div`
   position: absolute;
@@ -32,7 +32,7 @@ const TopBar = styled.div`
   width: 100%;
   height: 1em;
   background-color: ${colors.action};
-`;
+`
 
 const Arena = styled.div`
   position: relative;
@@ -44,12 +44,12 @@ const Arena = styled.div`
   @media ${devices.mobile} {
     min-height: 8em;
   }
-`;
+`
 
 const PageContainer = styled.div`
   flex: 0 0 auto;
   padding: 0 ${MARGIN_X}%;
-`;
+`
 
 const WorkSection = styled.section`
   position: relative;
@@ -62,7 +62,7 @@ const WorkSection = styled.section`
   @media ${devices.tabletPortrait} {
     height: auto;
   }
-`;
+`
 
 export default function Home({ homepage, projects }) {
   const { data } = homepage;

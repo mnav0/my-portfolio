@@ -5,15 +5,17 @@ import { colors } from "../styles/colors";
 import { devices } from "../styles/devices";
 import { MARGIN_X, MARGIN_Y_LG, MARGIN_Y_SM } from "../styles/layout";
 
-const Panel = styled.section`
+const PanelContainer = ({ background, text, ...props }) => <section {...props}></section>
+
+const Panel = styled(PanelContainer)`
   box-sizing: border-box;
   width: 100vw;
   margin-left: calc(50% - 50vw);
   min-height: 100dvh;
   padding: ${MARGIN_Y_LG} ${MARGIN_X}vw;
   scroll-snap-align: start;
-  background-color: ${props => props.$background};
-  color: ${props => props.$text};
+  background-color: ${props => props.background};
+  color: ${props => props.text};
 
   h1, h2, h3, h4, h5, h6, p, a, li {
     color: inherit;
@@ -75,8 +77,8 @@ export default function CaseStudy({ data }) {
   return (
     <Panel
       id="case-study"
-      $background={data.main_color || colors.primaryLight}
-      $text={data.text_color || colors.primaryDark}
+      background={data.main_color || colors.primaryLight}
+      text={data.text_color || colors.primaryDark}
     >
       {data.sections.map((section, index) => (
         <Section key={index}>

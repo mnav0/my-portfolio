@@ -1,6 +1,5 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { colors } from "../styles/colors";
 
 const NavigationContainer = styled.div`
   display: flex;
@@ -14,17 +13,11 @@ const HomeLink = styled(Link)`
   font-family: "ObjectSans-Heavy";
 `
 
-const NavLink = ({ selected, ...props }) => <Link {...props}></Link>
-
-const PageLink = styled(NavLink)`
-  text-decoration: ${(props) => props.selected ? `underline ${colors.action}` : 'none'};
-`
-
-export default function Navigation({ selectedRoute }) {
+export default function Navigation() {
   return (
     <NavigationContainer>
       <HomeLink href="/">Maggie Navracruz</HomeLink>
-      <PageLink href="/#work" selected={selectedRoute === "work"}>Work</PageLink>
+      <Link href="/#work">Work</Link>
     </NavigationContainer>
   )
 }
