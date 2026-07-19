@@ -18,7 +18,7 @@ const Panel = styled(PanelContainer)`
   min-height: 100dvh;
   padding: ${MARGIN_Y_LG} ${MARGIN_X}vw;
   scroll-snap-align: start;
-  background-color: ${props => props.background};
+  background-color: ${props => props.background || "transparent"};
   color: ${props => props.text};
 
   ${(props) => props.$themed && `
@@ -101,7 +101,7 @@ const Footer = styled.div`
 `
 
 const NavButton = styled(Button)`
-  ${(props) => props.$themed && `
+  ${(props) => props.$themed ? `
     && {
       border-color: currentColor;
       color: inherit;
@@ -109,6 +109,15 @@ const NavButton = styled(Button)`
 
     svg path {
       stroke: currentColor;
+    }
+  ` : `
+    && {
+      border-color: ${colors.action};
+      color: ${colors.action};
+    }
+
+    svg path {
+      stroke: ${colors.action};
     }
   `}
 `
@@ -135,12 +144,9 @@ function CaseStudyFooter({ nextProject, themed }) {
 }
 
 export default function CaseStudy({ data, nextProject, preview }) {
-  const background = preview
-    ? colors.primaryLight
-    : (data.main_color || colors.primaryLight);
-  const text = preview
-    ? colors.primaryDark
-    : (data.text_color || colors.primaryDark);
+  const hasCustomBackground = !preview && !!data.main_color;
+  const background = hasCustomBackground ? data.main_color : null;
+  const text = (!preview && data.text_color) || colors.primaryDark;
 
   return (
     <Panel
@@ -181,7 +187,7 @@ export default function CaseStudy({ data, nextProject, preview }) {
           </Section>
         ))
       )}
-      <CaseStudyFooter nextProject={nextProject} themed={!preview} />
+      <CaseStudyFooter nextProject={nextProject} themed={hasCustomBackground} />
     </Panel>
   )
 }
