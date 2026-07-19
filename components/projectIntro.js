@@ -176,7 +176,7 @@ export default function ProjectIntro({ data, tags }) {
           )}
           {data.live_site?.url && (
             <Button variant="solid" href={data.live_site.url}>
-              Live Site
+              Live Project
               <DiagonalArrow><Arrow stroke={colors.primaryLight} /></DiagonalArrow>
             </Button>
           )}

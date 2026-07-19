@@ -76,11 +76,14 @@ const SectionTitle = styled.h3`
 `
 
 const Hero = styled.div`
-  position: relative;
-  flex: 1;
-  min-height: 20em;
+  width: 100%;
   margin-bottom: ${MARGIN_Y_LG};
-  overflow: hidden;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
 `
 
 const Footer = styled.div`
@@ -149,18 +152,18 @@ export default function CaseStudy({ data, nextProject, preview }) {
       {preview ? (
         data.hero?.url && (
           <Hero>
-            <PrismicNextImage
-              field={data.hero}
-              fill
-              sizes="100vw"
-              fallbackAlt=""
-              style={{ objectFit: "cover" }}
-            />
+            <PrismicNextImage field={data.hero} fallbackAlt="" />
           </Hero>
         )
       ) : (
         data.sections.map((section, index) => (
           <Section key={index}>
+            <Text>
+              {section.section_title?.[0]?.text && (
+                <SectionTitle>{section.section_title[0].text}</SectionTitle>
+              )}
+              <PrismicRichText field={section.text} />
+            </Text>
             {(section.image?.url || section.image_secondary?.url) && (
               <ImageRow>
                 {section.image?.url && (
@@ -175,12 +178,6 @@ export default function CaseStudy({ data, nextProject, preview }) {
                 )}
               </ImageRow>
             )}
-            <Text>
-              {section.section_title?.[0]?.text && (
-                <SectionTitle>{section.section_title[0].text}</SectionTitle>
-              )}
-              <PrismicRichText field={section.text} />
-            </Text>
           </Section>
         ))
       )}
