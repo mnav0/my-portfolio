@@ -81,14 +81,58 @@ const Group = styled.div`
 `
 
 const Tag = styled.a`
+  position: relative;
   display: inline-block;
   margin: 0 0 0.35em;
   cursor: pointer;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: ${-(DOT * 1.5 + END_DOT)}px;
+    width: ${END_DOT * 2}px;
+    height: ${END_DOT * 2}px;
+    border-radius: 50%;
+    background: ${colors.action};
+    opacity: 0;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+
+  @media ${devices.tabletPortrait} {
+    &::before {
+      left: ${-(DOT + END_DOT)}px;
+    }
+  }
 `
 
 const TagLabel = styled.span`
+  position: relative;
   display: inline-block;
   margin: 0 0 0.35em;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: ${-(DOT + END_DOT)}px;
+    width: ${END_DOT * 2}px;
+    height: ${END_DOT * 2}px;
+    border-radius: 50%;
+    background: ${colors.action};
+    opacity: 0;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
 `
 
 const List = styled.ul`
@@ -187,7 +231,6 @@ const Description = styled.div`
   flex: 1;
   min-width: 0;
   padding: 1em 1.5em;
-  align-items: center;
   border-right: 1px solid ${colors.action};
 
   & p {

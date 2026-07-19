@@ -18,7 +18,7 @@ const StyledButton = styled(Base)`
   justify-content: center;
   gap: 0.4em;
   margin: 0;
-  padding: 0.75em 1.25em;
+  padding: 0.5em 1em;
   border-radius: 0;
   border: 1px solid ${colors.action};
   text-transform: uppercase;

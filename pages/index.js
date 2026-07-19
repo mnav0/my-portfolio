@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { client } from "../prismic";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import { colors } from "../styles/colors";
 import { devices } from "../styles/devices";
 import { MARGIN_X, MARGIN_Y_LG, MARGIN_Y_SM } from "../styles/layout";
@@ -12,6 +12,12 @@ import FloatingCallout from "../components/floatingCallout";
 import GlobalHeader from "../components/globalHeader";
 import WorkExplorer from "../components/workExplorer";
 
+const SnapScroll = createGlobalStyle`
+  html {
+    scroll-snap-type: y mandatory;
+  }
+`;
+
 const HeroSection = styled.section`
   position: relative;
   display: flex;
@@ -22,7 +28,8 @@ const HeroSection = styled.section`
   margin-top: -${MARGIN_Y_LG};
   margin-left: calc(50% - 50vw);
   padding: ${MARGIN_Y_SM} 0 ${MARGIN_Y_SM};
-`
+  scroll-snap-align: start;
+`;
 
 const TopBar = styled.div`
   position: absolute;
@@ -58,6 +65,7 @@ const WorkSection = styled.section`
   height: 100dvh;
   margin-left: calc(50% - 50vw);
   margin-bottom: -${MARGIN_Y_SM};
+  scroll-snap-align: start;
 
   @media ${devices.tabletPortrait} {
     height: auto;
@@ -88,6 +96,7 @@ export default function Home({ homepage, projects }) {
     return (
       <>
         <GlobalHeader />
+        <SnapScroll />
         <HeroSection>
           <TopBar />
           <Arena ref={arenaRef}>
