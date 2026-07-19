@@ -1,15 +1,11 @@
-import React from 'react';
 import { colors } from "../../styles/colors";
 
-const DEFAULT_SIZE = 40;
+const SIZE = 40;
 
-const Square = ({ size, fill }) => {
-  const dimension = size ?? DEFAULT_SIZE;
-  const color = fill ?? colors.action;
-
+const Square = ({ fill }) => {
   return (
-    <svg height={dimension} width={dimension}>
-      <rect height={dimension} width={dimension} fill={color}/>
+    <svg height={SIZE} width={SIZE}>
+      <rect height={SIZE} width={SIZE} fill={fill ?? colors.action}/>
     </svg>
   )
 }
