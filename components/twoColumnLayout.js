@@ -5,11 +5,9 @@ import { devices } from "../styles/devices";
 import TextLink from "../components/textLink";
 import HeadingWithSprinkle from "./headingWithSprinkle";
 import { colors } from "../styles/colors";
-import { MARGIN_X } from "../styles/layout";
+import { MARGIN_X, MARGIN_Y_LG, MARGIN_Y_SM } from "../styles/layout";
 import Arrow from "../components/decorations/Arrow";
-
-const PADDING_LARGE = "8em";
-const PADDING_MEDIUM = "6em";
+import { extLinkResolver } from "../prismic";
 
 const BackgroundContainer = ({ darkMode, ...props }) => <div {...props}></div>
 
@@ -55,7 +53,7 @@ const ColumnContainer = styled.div`
   }
 
   p:last-child {
-    margin-bottom: 2em;
+    margin-bottom: ${MARGIN_Y_SM};
   }
 
   img {
@@ -75,20 +73,19 @@ const ColumnContainer = styled.div`
 const Footer = ({ padding, ...props}) => <div {...props}></div>
 
 const ColumnFooter = styled(Footer)`
-  margin-top: ${props => props.padding || "2em"};
+  margin-top: ${props => props.padding || MARGIN_Y_SM};
 `
 
 const CtaRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-top: 10em;
+  margin-top: ${MARGIN_Y_LG};
 
   @media ${devices.tabletLandscape} {
     flex-direction: column;
     align-items: flex-start;
     gap: 2em;
-    margin-top: 4em;
   }
 `
 
@@ -134,16 +131,6 @@ export default function TwoColumnLayout({
   decorationsReverse, 
   darkMode 
 }) {
-  const extLinkResolver = (doc) => {
-    if (doc.link_type === "Document") {
-      return `/${doc.slug}`;
-    } else if (doc.link_type === "Web" || doc.link_type === "Media") {
-      return doc.url;
-    } else {
-      return "/";
-    }
-  };
-
   const richTextComponents = {
     hyperlink: ({ node, children }) => {
       const href = extLinkResolver(node.data);
@@ -175,7 +162,7 @@ export default function TwoColumnLayout({
           <HeadingWithSprinkle heading={heading} decorations={decorations} />
           {headingReverse && <HeadingWithSprinkle heading={headingReverse} decorations={decorationsReverse} reverse /> }
           {subheading && !scrollTo && (
-            <ColumnFooter padding={PADDING_LARGE}>
+            <ColumnFooter padding={MARGIN_Y_LG}>
               <h3>{subheading}</h3>
             </ColumnFooter>
           )}
@@ -200,7 +187,7 @@ export default function TwoColumnLayout({
             )
           ))}
           {!scrollTo && (
-            <ColumnFooter padding={PADDING_MEDIUM}>
+            <ColumnFooter padding={MARGIN_Y_LG}>
               {linksList}
             </ColumnFooter>
           )}

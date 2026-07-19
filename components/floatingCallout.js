@@ -4,6 +4,7 @@ import { PrismicRichText } from "@prismicio/react";
 import Swoop from "./decorations/Swoop";
 import { devices } from "../styles/devices";
 import { colors } from "../styles/colors";
+import { extLinkResolver } from "../prismic";
 
 const SPEED = 0.55;
 const ENTER_SPEED = 1.05;
@@ -50,15 +51,6 @@ const Floater = styled.a`
     }
   }
 `;
-
-const extLinkResolver = (doc) => {
-  if (doc.link_type === "Document") {
-    return `/${doc.slug}`;
-  } else if (doc.link_type === "Web" || doc.link_type === "Media") {
-    return doc.url;
-  }
-  return "/";
-};
 
 export default function FloatingCallout({ callout, arenaRef, href }) {
   const itemRef = useRef(null);

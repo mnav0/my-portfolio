@@ -5,6 +5,7 @@ import { PrismicRichText } from "@prismicio/react";
 import { useState, useEffect } from "react";
 import { devices } from "../styles/devices";
 import { colors } from "../styles/colors";
+import { MARGIN_Y_LG, MARGIN_Y_SM } from "../styles/layout";
 import Link from "next/link";
 import Navigation from "../components/navigation";
 import { PrismicNextImage } from "@prismicio/next";
@@ -27,14 +28,14 @@ const List = styled.ul`
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  padding: 2em 0 0;
+  padding: ${MARGIN_Y_SM} 0 0;
 `
 
 const Item = ({ selected, ...props}) => <li {...props}></li>
 
 const ListItem = styled(Item)`
   cursor: pointer;
-  margin: 0 2em 1em 0;
+  margin: 0 2em ${MARGIN_Y_SM} 0;
   text-decoration: ${(props) => props.selected ? `underline ${colors.action}` : 'none'}
 `
 
@@ -44,13 +45,13 @@ const Projects = styled.div`
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(3, auto);
   width: 100%;
-  padding-bottom: 1em;
+  padding-bottom: ${MARGIN_Y_SM};
 `
 
 const Project = ({ color, hovered, span, ...props}) => <div {...props}></div>
 
 const ProjectContainer = styled(Project)`
-  padding: 3em;
+  padding: ${MARGIN_Y_LG};
   border: 1px solid ${(props) => props.color};
   cursor: pointer;
   box-shadow: ${(props) => props.hovered ? "2px 4px 8px 0px rgba(0, 0, 0, 0.25)" : "none"};
@@ -79,7 +80,7 @@ const ProjectContainer = styled(Project)`
   }
 
   @media ${devices.tabletLandscape} {
-    padding: 2em;
+    padding: ${MARGIN_Y_SM};
   }
 
   @media screen and ${devices.tabletLandscape} { 

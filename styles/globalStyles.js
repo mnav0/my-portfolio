@@ -7,7 +7,7 @@ const BACKGROUND_IMG = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAACxCA
 
 const GlobalStyle = createGlobalStyle`  
     body {
-        padding: ${MARGIN_Y_LG}rem ${MARGIN_X}% ${MARGIN_Y_SM}rem ${MARGIN_X}% !important;
+        padding: ${MARGIN_Y_LG} ${MARGIN_X}% ${MARGIN_Y_SM} ${MARGIN_X}% !important;
         width: 100%;
         background-color: ${colors.primaryLight};
         background-image: url(${BACKGROUND_IMG});

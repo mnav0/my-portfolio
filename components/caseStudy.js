@@ -3,14 +3,14 @@ import { PrismicRichText } from "@prismicio/react";
 import { PrismicNextImage } from "@prismicio/next";
 import { colors } from "../styles/colors";
 import { devices } from "../styles/devices";
-import { MARGIN_X, MARGIN_Y_LG } from "../styles/layout";
+import { MARGIN_X, MARGIN_Y_LG, MARGIN_Y_SM } from "../styles/layout";
 
 const Panel = styled.section`
   box-sizing: border-box;
   width: 100vw;
   margin-left: calc(50% - 50vw);
   min-height: 100dvh;
-  padding: ${MARGIN_Y_LG}rem ${MARGIN_X}vw;
+  padding: ${MARGIN_Y_LG} ${MARGIN_X}vw;
   scroll-snap-align: start;
   background-color: ${props => props.$background};
   color: ${props => props.$text};
@@ -27,7 +27,7 @@ const Panel = styled.section`
 `
 
 const Section = styled.div`
-  margin: 0 0 6em;
+  margin: 0 0 ${MARGIN_Y_LG};
 
   &:last-child {
     margin-bottom: 0;
@@ -38,7 +38,7 @@ const ImageRow = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 2em;
-  margin-bottom: 2em;
+  margin-bottom: ${MARGIN_Y_SM};
 
   @media ${devices.tabletLandscape} {
     flex-direction: column;

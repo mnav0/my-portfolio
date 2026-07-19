@@ -3,7 +3,7 @@ import { client } from "../prismic";
 import styled from "styled-components";
 import { colors } from "../styles/colors";
 import { devices } from "../styles/devices";
-import { MARGIN_X } from "../styles/layout";
+import { MARGIN_X, MARGIN_Y_LG, MARGIN_Y_SM } from "../styles/layout";
 import Square from "../components/decorations/Square";
 import Circle from "../components/decorations/Circle";
 import Sprinkle from "../components/decorations/Sprinkle";
@@ -19,9 +19,9 @@ const HeroSection = styled.section`
   box-sizing: border-box;
   min-height: 100dvh;
   width: 100vw;
-  margin-top: -4rem;
+  margin-top: -${MARGIN_Y_LG};
   margin-left: calc(50% - 50vw);
-  padding: 1em 0 2.5rem;
+  padding: ${MARGIN_Y_SM} 0 ${MARGIN_Y_SM};
 `;
 
 const TopBar = styled.div`
@@ -57,7 +57,7 @@ const WorkSection = styled.section`
   width: 100vw;
   height: 100dvh;
   margin-left: calc(50% - 50vw);
-  margin-bottom: -2rem;
+  margin-bottom: -${MARGIN_Y_SM};
 
   @media ${devices.tabletPortrait} {
     height: auto;

@@ -3,7 +3,7 @@ import { scroller } from "react-scroll";
 import { PrismicRichText } from "@prismicio/react";
 import { colors } from "../styles/colors";
 import { devices } from "../styles/devices";
-import { MARGIN_X, MARGIN_Y_SM } from "../styles/layout";
+import { MARGIN_X, MARGIN_Y_LG, MARGIN_Y_SM } from "../styles/layout";
 import Navigation from "./navigation";
 import Button from "./button";
 import Arrow from "./decorations/Arrow";
@@ -15,8 +15,8 @@ const Panel = styled.section`
   min-height: 100dvh;
   width: 100vw;
   margin-left: calc(50% - 50vw);
-  margin-top: -4rem;
-  padding: 4rem 0 0;
+  margin-top: -${MARGIN_Y_LG};
+  padding: ${MARGIN_Y_LG} 0 0;
   scroll-snap-align: start;
 `
 
@@ -29,8 +29,8 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  margin-top: 3em;
-  padding: ${MARGIN_Y_SM}rem ${MARGIN_X}vw;
+  margin-top: ${MARGIN_Y_LG};
+  padding: ${MARGIN_Y_SM} ${MARGIN_X}vw;
   border: 1px solid ${colors.action};
 `
 
@@ -49,12 +49,12 @@ const Body = styled.div`
   justify-content: space-between;
   flex: 1;
   gap: 2em;
-  padding-top: 3em;
+  padding-top: ${MARGIN_Y_LG};
 
   @media ${devices.tabletLandscape} {
     flex-direction: column;
     gap: 0;
-    padding-top: 2em;
+    padding-top: ${MARGIN_Y_SM};
   }
 `
 
@@ -79,7 +79,7 @@ const Details = styled.div`
 `
 
 const Meta = styled.dl`
-  margin: 3em 0 0;
+  margin: ${MARGIN_Y_LG} 0 0;
   border-top: 1px solid ${colors.callout};
 `
 
@@ -87,7 +87,7 @@ const MetaRow = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 2em;
-  margin-top: 1em;
+  margin-top: ${MARGIN_Y_SM};
 
   dt {
     text-transform: uppercase;
@@ -104,7 +104,7 @@ const Footer = styled.div`
   justify-content: space-between;
   align-items: flex-end;
   gap: 2em;
-  margin-top: 2em;
+  margin-top: ${MARGIN_Y_SM};
 
   @media ${devices.mobile} {
     flex-direction: column;

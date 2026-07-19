@@ -5,7 +5,7 @@ import { PrismicRichText } from "@prismicio/react";
 import { PrismicNextImage } from "@prismicio/next";
 import { colors } from "../styles/colors";
 import { devices } from "../styles/devices";
-import { MARGIN_X, MARGIN_Y_SM } from "../styles/layout";
+import { MARGIN_X, MARGIN_Y_LG, MARGIN_Y_SM } from "../styles/layout";
 import Button from "./button";
 
 const DOT = 12;
@@ -60,10 +60,10 @@ const ColumnInner = styled.div`
   position: relative;
   box-sizing: border-box;
   min-height: 100%;
-  padding: ${MARGIN_Y_SM}rem 0 ${MARGIN_Y_SM}rem ${MARGIN_X}vw;
+  padding: ${MARGIN_Y_SM} 0 ${MARGIN_Y_SM} ${MARGIN_X}vw;
 
   @media ${devices.tabletPortrait} {
-    padding: 1.25em 0 4em;
+    padding: ${MARGIN_Y_SM} 0 ${MARGIN_Y_LG};
   }
 `
 
@@ -77,7 +77,7 @@ const Connectors = styled.svg`
 `
 
 const Group = styled.div`
-  margin-top: 2em;
+  margin-top: ${MARGIN_Y_SM};
 `
 
 const Tag = styled.a`
@@ -186,7 +186,8 @@ const Footer = styled.div`
 const Description = styled.div`
   flex: 1;
   min-width: 0;
-  padding: 1.25em 1.5em;
+  padding: 1em 1.5em;
+  align-items: center;
   border-right: 1px solid ${colors.action};
 
   & p {
