@@ -12,11 +12,6 @@ const TextLink = ({ url, link, label, newTab }) => {
     if (doc.type === 'homepage') {
       return `/`
     }
-
-    // URL for the about page
-    if (doc.type === 'about') {
-      return `/about`
-    }
   
     // URL for a page type
     if (doc.type === 'page') {

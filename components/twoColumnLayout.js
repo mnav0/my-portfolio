@@ -4,31 +4,13 @@ import { PrismicRichText } from "@prismicio/react";
 import { devices } from "../styles/devices";
 import TextLink from "../components/textLink";
 import HeadingWithSprinkle from "./headingWithSprinkle";
-import { colors } from "../styles/colors";
-import { MARGIN_X, MARGIN_Y_LG, MARGIN_Y_SM } from "../styles/layout";
+import { MARGIN_Y_LG, MARGIN_Y_SM } from "../styles/layout";
 import Arrow from "../components/decorations/Arrow";
 import { extLinkResolver } from "../prismic";
 
-const BackgroundContainer = ({ darkMode, ...props }) => <div {...props}></div>
-
-const Background = styled(BackgroundContainer)`
+const Background = styled.div`
   position: relative;
   margin: 0;
-
-  ${({ darkMode }) => darkMode && `
-    background-color: ${colors.primaryDark};
-    width: 100vw;
-    left: -${MARGIN_X}vw;
-    padding: 6rem ${MARGIN_X}vw 0 ${MARGIN_X}vw;
-
-    h1, h2, p {
-      color: ${colors.primaryLight};
-    }
-
-    h3, h4, h5, a {
-      color: ${colors.accentText};
-    }
-  `}
 `
 
 const TextContainer = styled.div`
@@ -128,8 +110,7 @@ export default function TwoColumnLayout({
   description, 
   links, 
   decorations, 
-  decorationsReverse, 
-  darkMode 
+  decorationsReverse
 }) {
   const richTextComponents = {
     hyperlink: ({ node, children }) => {
@@ -156,7 +137,7 @@ export default function TwoColumnLayout({
   );
 
   return (
-    <Background darkMode={darkMode}>
+    <Background>
       <TextContainer>
         <ColumnContainer>
           <HeadingWithSprinkle heading={heading} decorations={decorations} />
