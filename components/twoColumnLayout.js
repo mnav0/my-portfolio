@@ -10,6 +10,9 @@ import { richTextComponents } from "../components/richText";
 
 const Background = styled.div`
   position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   margin: 0;
 `
 
@@ -62,7 +65,7 @@ const CtaRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-top: ${MARGIN_Y_LG};
+  margin-top: auto;
 
   @media ${devices.tabletLandscape} {
     flex-direction: column;

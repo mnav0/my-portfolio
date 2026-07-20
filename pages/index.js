@@ -56,7 +56,11 @@ const Arena = styled.div`
 `
 
 const PageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   flex: 0 0 auto;
+  min-height: 40dvh;
   padding: 0 ${MARGIN_X}%;
 `
 
