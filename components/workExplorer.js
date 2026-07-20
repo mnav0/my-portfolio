@@ -427,7 +427,7 @@ export default function WorkExplorer({ projects = [] }) {
       <Preview>
         <Hero>
           {data.hero?.url && (
-            <PrismicNextImage field={data.hero} fill sizes="70vw" fallbackAlt="" style={{ objectFit: "cover" }} />
+            <PrismicNextImage field={data.hero} fill sizes="70vw" fallbackAlt="" style={{ objectFit: "cover", objectPosition: "top" }} />
           )}
         </Hero>
         <Footer>
