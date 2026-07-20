@@ -46,7 +46,7 @@ const GlobalStyle = createGlobalStyle`
     h5, h6 {
         text-transform: uppercase;
     }
-    h3, h4, .heavy, p strong, p a {
+    h3, h4, .heavy, p strong {
         font-family: ObjectSans-Heavy;
         font-weight: 800;
     }

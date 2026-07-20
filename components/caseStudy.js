@@ -22,7 +22,7 @@ const Panel = styled(PanelContainer)`
   color: ${props => props.text};
 
   ${(props) => props.$themed && `
-    h1, h2, h3, h4, h5, h6, p, a, li {
+    h1, h2, h3, h4, h5, h6, p, li {
       color: inherit;
     }
   `}
