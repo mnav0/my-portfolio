@@ -41,7 +41,6 @@ const Section = styled.div`
 const ImageRow = styled.div`
   display: flex;
   align-items: flex-start;
-  gap: 2em;
   margin-bottom: ${MARGIN_Y_SM};
 
   @media ${devices.tabletLandscape} {
@@ -53,13 +52,19 @@ const ImageRow = styled.div`
 const Primary = styled.div`
   flex: 1;
   min-width: 0;
+
+  @media ${devices.tabletLandscape} {
+    align-self: stretch;
+  }
 `
 
 const Secondary = styled.div`
   flex: 0 0 33%;
+  padding-left: 1em;
 
   @media ${devices.tabletLandscape} {
     align-self: stretch;
+    padding-left: 0;
   }
 `
 
